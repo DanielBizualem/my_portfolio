@@ -81,7 +81,7 @@ export default function ExperienceSection({ isDarkMode }: ExperienceProps) {
         {/* Left Side: Page Sticky Header & Team Projects Grid */}
         <div className="lg:col-span-5 lg:sticky lg:top-8 space-y-8">
           <div className="space-y-3 text-center lg:text-left">
-            <h2 className={`text-3xl sm:text-4xl font-black tracking-tight ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>
+            <h2 className={`text-3xl font-mono sm:text-4xl font-black tracking-tight ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>
               Experience
             </h2>
             <p className={`text-xs md:text-sm leading-relaxed max-w-md mx-auto lg:mx-0 ${isDarkMode ? 'text-slate-400' : 'text-slate-600'}`}>

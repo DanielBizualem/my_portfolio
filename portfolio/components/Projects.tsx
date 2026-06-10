@@ -92,7 +92,7 @@ export default function ProjectsSection({ isDarkMode }: ProjectsProps) {
         {/* Section Header Text & Filters */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
           <div className="space-y-3 text-center md:text-left">
-            <h2 className={`text-3xl sm:text-4xl font-black tracking-tight ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>
+            <h2 className={`text-3xl sm:text-4xl font-mono font-black tracking-tight ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>
               Projects
             </h2>
           </div>

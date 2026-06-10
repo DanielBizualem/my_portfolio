@@ -74,7 +74,7 @@ export default function ServicesSection({ isDarkMode }: ServicesProps) {
         
         {/* Section Header */}
         <div className="space-y-3 text-center lg:text-left">
-          <h2 className={`text-3xl sm:text-4xl font-black tracking-tight ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>
+          <h2 className={`text-3xl sm:text-4xl font-mono font-black tracking-tight ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>
             Services & Solutions
           </h2>
         </div>

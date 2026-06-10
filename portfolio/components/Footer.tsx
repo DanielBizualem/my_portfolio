@@ -60,7 +60,7 @@ export default function Footer({ isDarkMode }: FooterProps) {
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
             </span>
-            <span>V1.0.0 Stable</span>
+            <span>V1.0.0</span>
           </div>
         </div>
 

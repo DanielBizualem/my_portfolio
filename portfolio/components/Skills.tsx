@@ -10,6 +10,7 @@ interface SkillItem {
 
 interface SkillCategory {
   title: string;
+  subtitle: string;
   icon: React.ComponentType<{ className?: string }>;
   skills: SkillItem[];
 }
@@ -18,6 +19,7 @@ export default function SkillsSection({ isDarkMode = true }: { isDarkMode?: bool
   const skillCategories: SkillCategory[] = [
     {
       title: 'Languages',
+      subtitle: 'Core application building blocks',
       icon: Code2,
       skills: [
         {
@@ -57,6 +59,7 @@ export default function SkillsSection({ isDarkMode = true }: { isDarkMode?: bool
     },
     {
       title: 'Frontend Frameworks',
+      subtitle: 'Component structures and architectures',
       icon: Terminal,
       skills: [
         {
@@ -92,6 +95,7 @@ export default function SkillsSection({ isDarkMode = true }: { isDarkMode?: bool
     },
     {
       title: 'Backend Systems',
+      subtitle: 'Performant servers & communication tools',
       icon: Server,
       skills: [
         {
@@ -105,7 +109,7 @@ export default function SkillsSection({ isDarkMode = true }: { isDarkMode?: bool
         {
           name: 'Express.js',
           icon: (
-            <span className={`text-[9px] font-black tracking-tighter border px-1 py-0.5 rounded leading-none shrink-0 ${isDarkMode ? 'text-white border-white/30' : 'text-slate-900 border-slate-900/30'}`}>
+            <span className={`text-[8px] font-black tracking-tight border px-1 py-0.5 rounded leading-none shrink-0 ${isDarkMode ? 'text-white border-white/30' : 'text-slate-900 border-slate-900/30'}`}>
               EX
             </span>
           )
@@ -122,6 +126,7 @@ export default function SkillsSection({ isDarkMode = true }: { isDarkMode?: bool
     },
     {
       title: 'Database Architecture',
+      subtitle: 'Schema normalization & document modeling',
       icon: Database,
       skills: [
         {
@@ -144,6 +149,7 @@ export default function SkillsSection({ isDarkMode = true }: { isDarkMode?: bool
     },
     {
       title: 'DevOps & Tools',
+      subtitle: 'Version coordination & API pipelines',
       icon: GitBranch,
       skills: [
         {
@@ -176,17 +182,31 @@ export default function SkillsSection({ isDarkMode = true }: { isDarkMode?: bool
   ];
 
   return (
-    <section id="skills" className={`py-20 px-4 sm:px-6 lg:px-16 transition-colors duration-500 relative ${
+    <section id="skills" className={`py-24 px-4 sm:px-6 lg:px-16 transition-colors duration-500 relative overflow-hidden ${
       isDarkMode ? 'bg-[#06141d] text-white' : 'bg-slate-50 text-slate-900'
     }`}>
-      <div className="max-w-7xl mx-auto">
+      
+      {/* Decorative Gradient Background Highlights */}
+      <div className={`absolute top-1/4 -left-40 w-96 h-96 rounded-full filter blur-[120px] pointer-events-none opacity-20 transition-colors ${
+        isDarkMode ? 'bg-cyan-500' : 'bg-blue-400'
+      }`}></div>
+      <div className={`absolute bottom-1/4 -right-40 w-96 h-96 rounded-full filter blur-[120px] pointer-events-none opacity-20 transition-colors ${
+        isDarkMode ? 'bg-rose-500' : 'bg-rose-300'
+      }`}></div>
+
+      <div className="max-w-7xl mx-auto relative z-10">
         
         {/* Section Header */}
-        <div className="text-center lg:text-left mb-12 sm:mb-16 space-y-2">
-          <h2 className={`text-3xl sm:text-4xl font-black tracking-tight ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>
-            Skill and Tech Stacks
+        <div className="text-center lg:text-left mb-16 space-y-3">
+          <span className={`text-xs font-mono font-bold tracking-widest uppercase ${isDarkMode ? 'text-cyan-400' : 'text-blue-600'}`}>
+            Capabilities
+          </span>
+          <h2 className={`text-3xl sm:text-4xl font-mono font-black tracking-tight ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>
+            Skill & Tech Stacks
           </h2>
-          <div className={`w-12 h-1 rounded-full mx-auto lg:mx-0 mt-4 ${isDarkMode ? 'bg-cyan-400' : 'bg-blue-600'}`}></div>
+          <p className={`text-sm max-w-xl ${isDarkMode ? 'text-slate-400' : 'text-slate-500'}`}>
+            A collection of tools, frameworks, and engineering methodologies used to assemble complex interactive applications.
+          </p>
         </div>
 
         {/* Skills Grid Dashboard Layout */}
@@ -194,48 +214,55 @@ export default function SkillsSection({ isDarkMode = true }: { isDarkMode?: bool
           {skillCategories.map((category, index) => (
             <div
               key={index}
-              className={`p-6 rounded-xl border transition-all duration-300 transform hover:-translate-y-1 group relative overflow-hidden ${
+              className={`p-7 rounded-2xl border transition-all duration-300 transform hover:-translate-y-1.5 group relative overflow-hidden flex flex-col justify-between ${
                 isDarkMode 
-                  ? 'bg-[#092230] border-cyan-950/40 hover:border-cyan-500/30 shadow-[0_4px_20px_rgba(0,0,0,0.3)]' 
-                  : 'bg-white border-slate-200 hover:border-blue-500/30 shadow-[0_4px_20px_rgba(0,0,0,0.05)]'
+                  ? 'bg-[#081b27]/80 border-cyan-950/40 hover:border-cyan-500/30 backdrop-blur-md shadow-[0_12px_30px_rgba(0,0,0,0.4)]' 
+                  : 'bg-white border-slate-200 hover:border-blue-500/30 shadow-[0_12px_30px_rgba(59,130,246,0.04)]'
               }`}
             >
-              {/* Top Row: Category Title & Glass Accent Icon */}
-              <div className="flex items-center gap-4 mb-6">
-                <div className={`p-2.5 rounded-lg border flex items-center justify-center transition-colors duration-300 ${
-                  isDarkMode 
-                    ? 'bg-cyan-950/40 border-cyan-500/20 text-cyan-400 group-hover:bg-cyan-400 group-hover:text-slate-950' 
-                    : 'bg-blue-50 border-blue-100 text-blue-600 group-hover:bg-blue-600 group-hover:text-white'
-                }`}>
-                  <category.icon className="w-5 h-5" />
+              <div>
+                {/* Top Row: Category Title & Glass Accent Icon */}
+                <div className="flex items-start gap-4 mb-6">
+                  <div className={`p-3 rounded-xl border flex items-center justify-center transition-all duration-300 shrink-0 ${
+                    isDarkMode 
+                      ? 'bg-cyan-950/50 border-cyan-500/10 text-cyan-400 group-hover:bg-cyan-400 group-hover:text-slate-950 group-hover:shadow-lg group-hover:shadow-cyan-400/20' 
+                      : 'bg-blue-50 border-blue-100 text-blue-600 group-hover:bg-blue-600 group-hover:text-white group-hover:shadow-lg group-hover:shadow-blue-600/10'
+                  }`}>
+                    <category.icon className="w-5 h-5" />
+                  </div>
+                  <div className="space-y-0.5">
+                    <h3 className="font-extrabold text-lg tracking-tight transition-colors group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-cyan-400 group-hover:to-blue-500">
+                      {category.title}
+                    </h3>
+                    <p className={`text-xs leading-relaxed ${isDarkMode ? 'text-slate-400/80' : 'text-slate-500'}`}>
+                      {category.subtitle}
+                    </p>
+                  </div>
                 </div>
-                <h3 className="font-extrabold text-lg tracking-tight">
-                  {category.title}
-                </h3>
-              </div>
 
-              {/* Individual Badges Map with Integrated Larger SVG Icons */}
-              <div className="flex flex-wrap gap-2.5">
-                {category.skills.map((skill, sIndex) => (
-                  <span
-                    key={sIndex}
-                    className={`text-xs font-semibold px-3 py-1.5 rounded border transition-all duration-300 flex items-center gap-2.5 ${
-                      isDarkMode
-                        ? 'bg-slate-900/60 text-slate-300 border-slate-800/80 hover:border-cyan-500/40 hover:text-white'
-                        : 'bg-slate-100 text-slate-600 border-slate-200/60 hover:border-blue-500/40 hover:text-slate-900'
-                    }`}
-                  >
-                    <span className="flex items-center justify-center shrink-0">
-                      {skill.icon}
-                    </span>
-                    {skill.name}
-                  </span>
-                ))}
+                {/* Individual Badges Map with Integrated Icons */}
+                <div className="flex flex-wrap gap-2 pt-1">
+                  {category.skills.map((skill, sIndex) => (
+                    <div
+                      key={sIndex}
+                      className={`text-xs font-semibold px-3 2xl:px-3.5 py-2 rounded-xl border transition-all duration-300 flex items-center gap-2.5 ${
+                        isDarkMode
+                          ? 'bg-[#05141d]/90 text-slate-300 border-slate-800/80 hover:border-cyan-500/40 hover:text-white hover:bg-[#092230]'
+                          : 'bg-slate-100 text-slate-600 border-slate-200/60 hover:border-blue-500/40 hover:text-slate-900 hover:bg-white'
+                      }`}
+                    >
+                      <span className="flex items-center justify-center shrink-0 filter drop-shadow-[0_2px_4px_rgba(0,0,0,0.15)]">
+                        {skill.icon}
+                      </span>
+                      <span>{skill.name}</span>
+                    </div>
+                  ))}
+                </div>
               </div>
 
               {/* Clean Subtle Linear Decorative Accent Background Indicator */}
-              <div className={`absolute bottom-0 left-0 right-0 h-[2px] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left ${
-                isDarkMode ? 'bg-cyan-400' : 'bg-blue-600'
+              <div className={`absolute bottom-0 left-0 right-0 h-[2.5px] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left ${
+                isDarkMode ? 'bg-gradient-to-r from-cyan-400 to-blue-500' : 'bg-gradient-to-r from-blue-600 to-cyan-500'
               }`}></div>
             </div>
           ))}

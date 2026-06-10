@@ -80,7 +80,7 @@ export default function ContactSection({ isDarkMode }: ContactProps) {
         <div className="lg:col-span-5 space-y-8 text-center lg:text-left">
           <div className="space-y-3">
             
-             <h2 className={`text-3xl sm:text-4xl font-black tracking-tight ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>
+             <h2 className={`text-3xl sm:text-4xl font-mono font-black tracking-tight ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>
               Contact
             </h2>
             <p className={`text-xs md:text-sm leading-relaxed max-w-md mx-auto lg:mx-0 ${isDarkMode ? 'text-slate-400' : 'text-slate-600'}`}>
@@ -251,7 +251,7 @@ export default function ContactSection({ isDarkMode }: ContactProps) {
                       required
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      placeholder="e.g. John Doe"
+                      placeholder="e.g. John Smith"
                       disabled={formStatus === 'submitting'}
                       className={`w-full px-4 py-3 rounded-xl border text-xs font-medium transition-all duration-300 focus:outline-none focus:ring-1 ${
                         isDarkMode 
@@ -271,7 +271,7 @@ export default function ContactSection({ isDarkMode }: ContactProps) {
                       required
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      placeholder="name@company.com"
+                      placeholder="name@gmail.com"
                       disabled={formStatus === 'submitting'}
                       className={`w-full px-4 py-3 rounded-xl border text-xs font-medium transition-all duration-300 focus:outline-none focus:ring-1 ${
                         isDarkMode 

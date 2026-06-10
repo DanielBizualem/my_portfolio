@@ -48,7 +48,7 @@ export default function AboutSection({ isDarkMode }: AboutProps) {
         
         {/* Left Side: Creative Asset Display */}
         <div className="lg:col-span-5 flex flex-col items-center lg:items-start justify-center order-2 lg:order-1 relative w-full">
-          <h2 className={`w-full max-w-[350px] text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight mb-4 sm:mb-6 text-center lg:text-left ${
+          <h2 className={`w-full max-w-[350px] font-mono text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight mb-4 sm:mb-6 text-center lg:text-left ${
             isDarkMode ? 'text-white' : 'text-slate-900'
           }`}>
             About Me
