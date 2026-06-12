@@ -1,6 +1,7 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import { motion } from 'framer-motion';
 import { Briefcase, Users, Calendar, MapPin } from 'lucide-react';
 
 interface TimelineItem {
@@ -18,12 +19,6 @@ interface ExperienceProps {
 }
 
 export default function ExperienceSection({ isDarkMode }: ExperienceProps) {
-  const [isLoaded, setIsLoaded] = useState(false);
-
-  useEffect(() => {
-    setIsLoaded(true);
-  }, []);
-
   const timelineData: TimelineItem[] = [
     {
       role: 'Software Engineer Intern',
@@ -64,6 +59,36 @@ export default function ExperienceSection({ isDarkMode }: ExperienceProps) {
     }
   ];
 
+  // Animation Variant Configurations
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.18,
+        delayChildren: 0.1,
+      }
+    }
+  };
+
+  const itemLeftVariants = {
+    hidden: { opacity: 0, x: -25 },
+    visible: { 
+      opacity: 1, 
+      x: 0,
+      transition: { type: 'spring', stiffness: 100, damping: 20 }
+    }
+  };
+
+  const itemRightVariants = {
+    hidden: { opacity: 0, x: 25 },
+    visible: { 
+      opacity: 1, 
+      x: 0,
+      transition: { type: 'spring', stiffness: 90, damping: 18 }
+    }
+  };
+
   return (
     <section 
       id="experience"
@@ -76,36 +101,44 @@ export default function ExperienceSection({ isDarkMode }: ExperienceProps) {
         isDarkMode ? 'border-cyan-500/20' : 'border-slate-300'
       }`}></div>
 
-      <div className="w-full max-w-7xl mx-auto px-4 md:px-8 py-16 relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+      <motion.div 
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: '-100px' }}
+        className="w-full max-w-7xl mx-auto px-4 md:px-8 py-16 relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 items-start"
+      >
         
         {/* Left Side: Page Sticky Header & Team Projects Grid */}
         <div className="lg:col-span-5 lg:sticky lg:top-8 space-y-8">
-          <div className="space-y-3 text-center lg:text-left">
+          <motion.div variants={itemLeftVariants} className="space-y-3 text-center lg:text-left">
             <h2 className={`text-3xl font-mono sm:text-4xl font-black tracking-tight ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>
               Experience
             </h2>
             <p className={`text-xs md:text-sm leading-relaxed max-w-md mx-auto lg:mx-0 ${isDarkMode ? 'text-slate-400' : 'text-slate-600'}`}>
               Bridging academic rigor at ASTU with enterprise software deployment across critical hubs in Ethiopia.
             </p>
-          </div>
+          </motion.div>
 
           {/* Team Projects Sub-Section Grid */}
-          <div className="space-y-4">
+          <motion.div variants={itemLeftVariants} className="space-y-4">
             <div className="flex items-center gap-2 justify-center lg:justify-start">
               <Users className={`w-4 h-4 ${isDarkMode ? 'text-cyan-400' : 'text-blue-600'}`} />
               <h3 className="text-xs font-extrabold uppercase tracking-widest">Featured Team Projects</h3>
             </div>
             
             <div className="grid gap-4">
-              {teamProjects.map((proj, idx) => (
-                <div 
-                  key={idx}
-                  className={`p-5 rounded-xl border transition-all duration-300 transform hover:-translate-y-0.5 relative group ${
+              {teamProjects.map((proj) => (
+                <motion.div 
+                  key={proj.title}
+                  whileHover={{ y: -3, scale: 1.01 }}
+                  transition={{ type: 'spring', stiffness: 400, damping: 25 }}
+                  className={`p-5 rounded-xl border transition-colors duration-300 relative group ${
                     isDarkMode ? 'bg-[#092230]/40 border-cyan-500/10' : 'bg-white border-slate-200 shadow-sm'
                   }`}
                 >
                   <div className="flex justify-between items-start gap-4 mb-2">
-                    <h4 className={`text-sm font-bold tracking-tight ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>
+                    <h4 className={`text-sm font-bold tracking-tight transition-colors group-hover:text-cyan-400 ${isDarkMode ? 'text-white' : 'text-slate-900 group-hover:text-blue-600'}`}>
                       {proj.title}
                     </h4>
                     <span className={`text-[9px] font-extrabold tracking-wider uppercase px-2 py-0.5 rounded border whitespace-nowrap ${
@@ -117,45 +150,59 @@ export default function ExperienceSection({ isDarkMode }: ExperienceProps) {
                   <p className={`text-xs leading-normal ${isDarkMode ? 'text-slate-400' : 'text-slate-500'}`}>
                     {proj.desc}
                   </p>
-                </div>
+                </motion.div>
               ))}
             </div>
-          </div>
+          </motion.div>
         </div>
 
         {/* Right Side: Corporate Experience Timeline Stack */}
         <div className="lg:col-span-7 space-y-8 relative pl-6 md:pl-8">
           
-          {/* Vertical Timeline Vector Backbone Accent */}
-          <div className={`absolute left-0 top-2 bottom-2 w-[2px] transition-colors duration-500 ${
-            isDarkMode ? 'bg-gradient-to-b from-cyan-500/40 via-cyan-900/20 to-transparent' : 'bg-slate-200'
-          }`}></div>
+          {/* Vertical Timeline Vector Backbone Accent (Animated on load) */}
+          <motion.div 
+            initial={{ scaleY: 0, originY: 0 }}
+            whileInView={{ scaleY: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, ease: 'easeOut', delay: 0.2 }}
+            className={`absolute left-0 top-2 bottom-2 w-[2px] ${
+              isDarkMode ? 'bg-gradient-to-b from-cyan-500/50 via-cyan-900/20 to-transparent' : 'bg-slate-200'
+            }`}
+          />
 
-          {timelineData.map((item, index) => (
-            <div 
-              key={index}
-              className={`relative transition-all duration-1000 transform ${
-                isLoaded ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-6'
-              }`}
-              style={{ transitionDelay: `${index * 150}ms` }}
+          {timelineData.map((item) => (
+            <motion.div 
+              key={`${item.company}-${item.role}`}
+              variants={itemRightVariants}
+              className="relative"
             >
               {/* Timeline Hub Node Pin */}
-              <div className={`absolute -left-[31px] md:-left-[35px] top-1.5 p-1 rounded-full border transition-colors duration-300 ${
-                isDarkMode ? 'bg-[#06141d] border-cyan-400 text-cyan-400' : 'bg-slate-50 border-blue-600 text-blue-600'
-              }`}>
+              <motion.div 
+                initial={{ scale: 0 }}
+                whileInView={{ scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ type: 'spring', stiffness: 300, damping: 15, delay: 0.3 }}
+                className={`absolute -left-[31px] md:-left-[35px] top-1.5 p-1 rounded-full border z-10 ${
+                  isDarkMode ? 'bg-[#06141d] border-cyan-400 text-cyan-400' : 'bg-slate-50 border-blue-600 text-blue-600'
+                }`}
+              >
                 <Briefcase className="w-3 h-3 md:w-3.5 md:h-3.5" />
-              </div>
+              </motion.div>
 
               {/* Main Card Element Block */}
-              <div className={`p-6 rounded-2xl border transition-all duration-300 backdrop-blur-sm group ${
-                isDarkMode 
-                  ? 'bg-[#0a1f2c]/50 border-cyan-500/10 hover:border-cyan-400/30 shadow-xl shadow-cyan-950/5' 
-                  : 'bg-white border-slate-200 hover:border-blue-300 shadow-md shadow-slate-100'
-              }`}>
+              <motion.div 
+                whileHover={{ y: -4 }}
+                transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+                className={`p-6 rounded-2xl border transition-colors duration-500 backdrop-blur-sm group ${
+                  isDarkMode 
+                    ? 'bg-[#0a1f2c]/50 border-cyan-500/10 hover:border-cyan-400/30 shadow-xl shadow-cyan-950/5' 
+                    : 'bg-white border-slate-200 hover:border-blue-300 shadow-md shadow-slate-100'
+                }`}
+              >
                 {/* Meta Matrix Headers */}
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
                   <div>
-                    <h3 className={`text-lg font-bold tracking-tight ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>
+                    <h3 className={`text-lg font-bold tracking-tight transition-colors duration-300 ${isDarkMode ? 'text-white group-hover:text-cyan-400' : 'text-slate-900 group-hover:text-blue-600'}`}>
                       {item.role}
                     </h3>
                     <div className="flex flex-wrap items-center gap-x-3 gap-y-1 mt-1.5 text-xs font-semibold">
@@ -207,12 +254,12 @@ export default function ExperienceSection({ isDarkMode }: ExperienceProps) {
                   </div>
                 )}
 
-              </div>
-            </div>
+              </motion.div>
+            </motion.div>
           ))}
         </div>
 
-      </div>
+      </motion.div>
     </section>
   );
 }

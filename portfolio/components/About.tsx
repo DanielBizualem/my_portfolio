@@ -1,19 +1,14 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Code2, Cpu, GraduationCap, Layout, Terminal } from 'lucide-react';
+import { motion, Variants } from 'framer-motion'; // 👈 Imported Variants here
 
 interface AboutProps {
   isDarkMode: boolean;
 }
 
 export default function AboutSection({ isDarkMode }: AboutProps) {
-  const [isLoaded, setIsLoaded] = useState(false);
-
-  useEffect(() => {
-    setIsLoaded(true);
-  }, []);
-
   const coreFocus = [
     {
       icon: Code2,
@@ -32,6 +27,27 @@ export default function AboutSection({ isDarkMode }: AboutProps) {
     },
   ];
 
+  // 👈 Explicitly typed these as Variants to clear up the TypeScript error
+  const containerVariants: Variants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.15,
+        delayChildren: 0.1,
+      },
+    },
+  };
+
+  const itemVariants: Variants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { type: 'spring', stiffness: 80, damping: 16 },
+    },
+  };
+
   return (
     <section 
       id="about"
@@ -48,16 +64,24 @@ export default function AboutSection({ isDarkMode }: AboutProps) {
         
         {/* Left Side: Creative Asset Display */}
         <div className="lg:col-span-5 flex flex-col items-center lg:items-start justify-center order-2 lg:order-1 relative w-full">
-          <h2 className={`w-full max-w-[350px] font-mono text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight mb-4 sm:mb-6 text-center lg:text-left ${
-            isDarkMode ? 'text-white' : 'text-slate-900'
-          }`}>
-            About Me
-          </h2>
-          
-          <div 
-            className={`relative w-full max-w-[350px] h-[320px] sm:h-[350px] transition-all duration-1000 transform ${
-              isLoaded ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
+          <motion.h2 
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: '-100px' }}
+            transition={{ duration: 0.5, ease: 'easeOut' }}
+            className={`w-full max-w-[350px] font-mono text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight mb-4 sm:mb-6 text-center lg:text-left ${
+              isDarkMode ? 'text-white' : 'text-slate-900'
             }`}
+          >
+            About Me
+          </motion.h2>
+          
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.93, rotate: -2 }}
+            whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
+            viewport={{ once: true, margin: '-100px' }}
+            transition={{ type: 'spring', stiffness: 60, damping: 15, delay: 0.2 }}
+            className="relative w-full max-w-[350px] h-[320px] sm:h-[350px]"
           >
             {/* Ambient Blur */}
             <div className={`absolute inset-4 rounded-3xl filter blur-3xl -z-10 animate-pulse ${
@@ -65,10 +89,10 @@ export default function AboutSection({ isDarkMode }: AboutProps) {
             }`}></div>
 
             {/* Content Card Layout */}
-            <div className={`w-full h-full p-5 sm:p-6 rounded-3xl border flex flex-col justify-between transition-all duration-500 backdrop-blur-sm ${
+            <div className={`w-full h-full p-5 sm:p-6 rounded-3xl border flex flex-col justify-between transition-colors duration-500 backdrop-blur-sm shadow-xl ${
               isDarkMode 
-                ? 'bg-[#0a1f2c]/60 border-cyan-500/20 shadow-2xl shadow-cyan-950/50' 
-                : 'bg-white border-slate-200 shadow-xl shadow-slate-200/50'
+                ? 'bg-[#0a1f2c]/60 border-cyan-500/20 shadow-cyan-950/50' 
+                : 'bg-white border-slate-200 shadow-slate-200/50'
             }`}>
               {/* Card Header UI Decoration */}
               <div className="flex justify-between items-center">
@@ -103,45 +127,61 @@ export default function AboutSection({ isDarkMode }: AboutProps) {
             </div>
 
             {/* Accent trace offset background element */}
-            <div className={`absolute -inset-2 border rounded-3xl pointer-events-none transform -rotate-3 transition-colors duration-500 -z-20 ${
-              isDarkMode ? 'border-cyan-400/10' : 'border-blue-500/10'
-            }`}></div>
-          </div>
+            <motion.div 
+              initial={{ rotate: 0 }}
+              whileInView={{ rotate: -4 }}
+              viewport={{ once: true }}
+              transition={{ type: 'spring', stiffness: 40, damping: 12, delay: 0.4 }}
+              className={`absolute -inset-2 border rounded-3xl pointer-events-none transition-colors duration-500 -z-20 ${
+                isDarkMode ? 'border-cyan-400/10' : 'border-blue-500/10'
+              }`}
+            ></motion.div>
+          </motion.div>
         </div>
 
         {/* Right Side: Text & Core Matrix */}
-        <div 
-          className={`lg:col-span-7 space-y-6 sm:space-y-8 text-center lg:text-left order-1 lg:order-2 transition-all duration-1000 delay-200 ${
-            isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-          }`}
+        <motion.div 
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: '-100px' }}
+          className="lg:col-span-7 space-y-6 sm:space-y-8 text-center lg:text-left order-1 lg:order-2 relative"
         >
           <div className="space-y-2 sm:space-y-3">
-            <h3 className={`text-2xl sm:text-3xl font-black tracking-tight ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>
+            <motion.h3 variants={itemVariants} className={`text-2xl sm:text-3xl font-black tracking-tight ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>
               Hello 🖐️
-            </h3>
-            <h3 className={`text-xl sm:text-2xl font-bold tracking-tight leading-snug ${isDarkMode ? 'text-slate-100' : 'text-slate-800'}`}>
+            </motion.h3>
+            <motion.h3 variants={itemVariants} className={`text-xl sm:text-2xl font-bold tracking-tight leading-snug ${isDarkMode ? 'text-slate-100' : 'text-slate-800'}`}>
               I’m Daniel Bizualem, a Software Engineer from Ethiopia.
-            </h3>
+            </motion.h3>
           </div>
 
-          <div className={`space-y-4 text-xs sm:text-sm md:text-base leading-relaxed max-w-2xl mx-auto lg:mx-0 ${isDarkMode ? 'text-slate-400' : 'text-slate-600'}`}>
+          <motion.div variants={itemVariants} className={`space-y-4 text-xs sm:text-sm md:text-base leading-relaxed max-w-2xl mx-auto lg:mx-0 ${isDarkMode ? 'text-slate-400' : 'text-slate-600'}`}>
             <p>
               I graduated from Adama Science and Technology University with a BSc degree in Software Engineering. I specialize in full-stack web development. In addition to my academic education, I am self-taught and have more than 3 years of rigorous building and architecture experience.
             </p>
             <p>
               I aim to build powerful applications by combining modern full-stack development implementations with smart engineering toolchains to solve complex problems. Most importantly, I am a continuous learner who is highly motivated to connect and collaborate with teams worldwide.
             </p>
-          </div>
+          </motion.div>
 
           {/* Interactive Feature Matrix Grid */}
-          <div className="grid gap-4 grid-cols-1 md:grid-cols-3 lg:grid-cols-1 pt-2">
+          <motion.div variants={itemVariants} className="grid gap-4 grid-cols-1 md:grid-cols-3 lg:grid-cols-1 pt-2">
             {coreFocus.map((focus, index) => (
-              <div 
+              <motion.div 
                 key={index}
-                className={`p-4 rounded-xl border flex flex-col sm:flex-row gap-3 sm:gap-4 text-center sm:text-left items-center sm:items-start transition-all duration-300 transform hover:-translate-y-0.5 ${
+                variants={itemVariants}
+                whileHover={{ 
+                  scale: 1.015, 
+                  x: 4,
+                  borderColor: isDarkMode ? 'rgba(34,211,238,0.4)' : 'rgba(59,130,246,0.4)'
+                }}
+                whileTap={{ scale: 0.995 }}
+                transition={{ type: 'spring', stiffness: 200, damping: 20 }}
+                className={`p-4 rounded-xl border flex flex-col sm:flex-row gap-3 sm:gap-4 text-center sm:text-left items-center sm:items-start transition-colors duration-300 shadow-sm cursor-default ${
                   isDarkMode 
-                    ? 'bg-[#092230]/40 border-cyan-500/10 hover:border-cyan-500/30' 
-                    : 'bg-white border-slate-200 hover:border-blue-300'
+                    ? 'bg-[#092230]/40 border-cyan-500/10' 
+                    : 'bg-white border-slate-200'
                 }`}
               >
                 <div className={`p-2 h-fit rounded-lg border flex-shrink-0 ${
@@ -157,11 +197,11 @@ export default function AboutSection({ isDarkMode }: AboutProps) {
                     {focus.desc}
                   </p>
                 </div>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
 
-        </div>
+        </motion.div>
       </div>
     </section>
   );

@@ -14,7 +14,7 @@ const PORT = process.env.PORT || 4000;
 app.use(express.json())
 app.use(cors({
     origin: [
-        'https://daniel-bizualem4.vercel.app',
+        'https://danielbizualem.vercel.app',
         'http://localhost:3000'
       ], // Explicitly allow your frontend URL
     credentials: true                // Allow cookies/headers to be sent

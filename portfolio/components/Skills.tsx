@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { motion } from 'framer-motion';
 import { Code2, Server, Database, GitBranch, Terminal } from 'lucide-react';
 
 interface SkillItem {
@@ -181,6 +182,29 @@ export default function SkillsSection({ isDarkMode = true }: { isDarkMode?: bool
     },
   ];
 
+  // Variants for staggered orchestration when grid enters viewport
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1, // Smooth step-by-step loading curve
+      },
+    },
+  };
+
+  const cardVariants = {
+    hidden: { opacity: 0, y: 25 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.5,
+        ease: [0.16, 1, 0.3, 1] as const, // Smooth cubic bezier custom curve
+      },
+    },
+  };
+
   return (
     <section id="skills" className={`py-24 px-4 sm:px-6 lg:px-16 transition-colors duration-500 relative overflow-hidden ${
       isDarkMode ? 'bg-[#06141d] text-white' : 'bg-slate-50 text-slate-900'
@@ -197,7 +221,13 @@ export default function SkillsSection({ isDarkMode = true }: { isDarkMode?: bool
       <div className="max-w-7xl mx-auto relative z-10">
         
         {/* Section Header */}
-        <div className="text-center lg:text-left mb-16 space-y-3">
+        <motion.div 
+          initial={{ opacity: 0, y: -15 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          className="text-center lg:text-left mb-16 space-y-3"
+        >
           <span className={`text-xs font-mono font-bold tracking-widest uppercase ${isDarkMode ? 'text-cyan-400' : 'text-blue-600'}`}>
             Capabilities
           </span>
@@ -207,14 +237,26 @@ export default function SkillsSection({ isDarkMode = true }: { isDarkMode?: bool
           <p className={`text-sm max-w-xl ${isDarkMode ? 'text-slate-400' : 'text-slate-500'}`}>
             A collection of tools, frameworks, and engineering methodologies used to assemble complex interactive applications.
           </p>
-        </div>
+        </motion.div>
 
         {/* Skills Grid Dashboard Layout */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <motion.div 
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+        >
           {skillCategories.map((category, index) => (
-            <div
+            <motion.div
               key={index}
-              className={`p-7 rounded-2xl border transition-all duration-300 transform hover:-translate-y-1.5 group relative overflow-hidden flex flex-col justify-between ${
+              variants={cardVariants}
+              whileHover={{ 
+                y: -6, 
+                scale: 1.01,
+                transition: { duration: 0.2, ease: "easeInOut" }
+              }}
+              className={`p-7 rounded-2xl border transition-colors duration-300 group relative overflow-hidden flex flex-col justify-between ${
                 isDarkMode 
                   ? 'bg-[#081b27]/80 border-cyan-950/40 hover:border-cyan-500/30 backdrop-blur-md shadow-[0_12px_30px_rgba(0,0,0,0.4)]' 
                   : 'bg-white border-slate-200 hover:border-blue-500/30 shadow-[0_12px_30px_rgba(59,130,246,0.04)]'
@@ -243,9 +285,12 @@ export default function SkillsSection({ isDarkMode = true }: { isDarkMode?: bool
                 {/* Individual Badges Map with Integrated Icons */}
                 <div className="flex flex-wrap gap-2 pt-1">
                   {category.skills.map((skill, sIndex) => (
-                    <div
+                    <motion.div
                       key={sIndex}
-                      className={`text-xs font-semibold px-3 2xl:px-3.5 py-2 rounded-xl border transition-all duration-300 flex items-center gap-2.5 ${
+                      whileHover={{ scale: 1.04 }}
+                      whileTap={{ scale: 0.97 }}
+                      transition={{ type: "spring", stiffness: 400, damping: 15 }}
+                      className={`text-xs font-semibold px-3 2xl:px-3.5 py-2 rounded-xl border transition-all duration-300 flex items-center gap-2.5 cursor-default ${
                         isDarkMode
                           ? 'bg-[#05141d]/90 text-slate-300 border-slate-800/80 hover:border-cyan-500/40 hover:text-white hover:bg-[#092230]'
                           : 'bg-slate-100 text-slate-600 border-slate-200/60 hover:border-blue-500/40 hover:text-slate-900 hover:bg-white'
@@ -255,7 +300,7 @@ export default function SkillsSection({ isDarkMode = true }: { isDarkMode?: bool
                         {skill.icon}
                       </span>
                       <span>{skill.name}</span>
-                    </div>
+                    </motion.div>
                   ))}
                 </div>
               </div>
@@ -264,9 +309,9 @@ export default function SkillsSection({ isDarkMode = true }: { isDarkMode?: bool
               <div className={`absolute bottom-0 left-0 right-0 h-[2.5px] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left ${
                 isDarkMode ? 'bg-gradient-to-r from-cyan-400 to-blue-500' : 'bg-gradient-to-r from-blue-600 to-cyan-500'
               }`}></div>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
 
       </div>
     </section>
