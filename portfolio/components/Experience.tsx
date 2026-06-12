@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { motion } from 'framer-motion';
+import { motion, Variants } from 'framer-motion';
 import { Briefcase, Users, Calendar, MapPin } from 'lucide-react';
 
 interface TimelineItem {
@@ -59,8 +59,8 @@ export default function ExperienceSection({ isDarkMode }: ExperienceProps) {
     }
   ];
 
-  // Animation Variant Configurations
-  const containerVariants = {
+  // STRICT TYPE-SAFE CONFIGURATIONS FOR FRAMER MOTION
+  const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -71,7 +71,7 @@ export default function ExperienceSection({ isDarkMode }: ExperienceProps) {
     }
   };
 
-  const itemLeftVariants = {
+  const itemLeftVariants: Variants = {
     hidden: { opacity: 0, x: -25 },
     visible: { 
       opacity: 1, 
@@ -80,7 +80,7 @@ export default function ExperienceSection({ isDarkMode }: ExperienceProps) {
     }
   };
 
-  const itemRightVariants = {
+  const itemRightVariants: Variants = {
     hidden: { opacity: 0, x: 25 },
     visible: { 
       opacity: 1, 
@@ -159,7 +159,7 @@ export default function ExperienceSection({ isDarkMode }: ExperienceProps) {
         {/* Right Side: Corporate Experience Timeline Stack */}
         <div className="lg:col-span-7 space-y-8 relative pl-6 md:pl-8">
           
-          {/* Vertical Timeline Vector Backbone Accent (Animated on load) */}
+          {/* Vertical Timeline Vector Backbone Accent */}
           <motion.div 
             initial={{ scaleY: 0, originY: 0 }}
             whileInView={{ scaleY: 1 }}
@@ -240,7 +240,9 @@ export default function ExperienceSection({ isDarkMode }: ExperienceProps) {
 
                 {/* Technical Stack Highlights Micro-Chips */}
                 {item.highlights && (
-                  <div className="flex flex-wrap gap-1.5 pt-4 border-t border-dashed transition-colors duration-300 border-inherit">
+                  <div className={`flex flex-wrap gap-1.5 pt-4 border-t border-dashed transition-colors duration-300 ${
+                    isDarkMode ? 'border-cyan-950' : 'border-slate-200'
+                  }`}>
                     {item.highlights.map((chip, cIdx) => (
                       <span 
                         key={cIdx} 
