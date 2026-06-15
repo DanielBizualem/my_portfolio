@@ -2,6 +2,8 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { MessageSquare, X, Send, Loader2 } from 'lucide-react';
+import Axios from '@/utils/Axios';
+import summeryApi from '@/common/summeryApi';
 
 interface ChatWidgetProps {
   isDarkMode: boolean;
@@ -35,19 +37,11 @@ export default function ChatWidget({ isDarkMode }: ChatWidgetProps) {
     setIsLoading(true);
 
     try {
-      const response = await fetch('http://localhost:5000/api/portfolio/chat', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: userMessage }),
+      const response = await Axios.post(summeryApi.chat.url, { 
+        message: userMessage 
       });
 
-      const data = await response.json();
-
-      if (response.ok) {
-        setMessages((prev) => [...prev, { role: 'ai', text: data.reply }]);
-      } else {
-        setMessages((prev) => [...prev, { role: 'ai', text: "Sorry, I'm having trouble connecting to the server." }]);
-      }
+      setMessages((prev) => [...prev, { role: 'ai', text: response.data.reply }]);
     } catch (error) {
       setMessages((prev) => [...prev, { role: 'ai', text: "Network error. Please try again later." }]);
     } finally {

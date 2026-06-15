@@ -10,7 +10,11 @@ const summeryApi = {
     },
     message:{
         method:'POST',
-        url:"/api/portfolio/message"
+        url:"api/portfolio/message"
+    },
+    chat:{
+        method:'POST',
+        url:"api/portfolio/chat"
     }
 }
 
