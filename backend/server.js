@@ -12,27 +12,13 @@ const PORT = process.env.PORT || 4000;
 
 
 app.use(express.json())
-const allowedOrigins = [
-  'https://danielbizualem.vercel.app',
-  'http://localhost:3000'
-];
-
 app.use(cors({
-  origin: function (origin, callback) {
-    // Strictly allow ONLY origins inside the allowedOrigins array
-    if (allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error('CORS Policy: Access Denied for this origin.'));
-    }
-  },
-  credentials: true,
-  methods: ['GET', 'POST', 'OPTIONS'], // Restrict to only the methods your portfolio uses
-  allowedHeaders: ['Content-Type', 'Authorization']
-}));
-
-// Strictly handle preflight options for your routes
-app.options('*', cors());
+    origin: [
+        'https://danielbizualem.vercel.app',
+        'http://localhost:3000'
+      ], // Explicitly allow your frontend URL
+    credentials: true                // Allow cookies/headers to be sent
+}))
 
 app.use(cookieParser())
 app.use('/api/portfolio',userRoute)
