@@ -37,9 +37,11 @@ export default function ChatWidget({ isDarkMode }: ChatWidgetProps) {
     setIsLoading(true);
 
     try {
-      const response = await Axios.post(summeryApi.chat.url, { 
-        message: userMessage 
-      });
+      const response = await Axios({
+        ...summeryApi.chat,
+        data: { message: userMessage }
+      }
+      );
 
       setMessages((prev) => [...prev, { role: 'ai', text: response.data.reply }]);
     } catch (error) {
