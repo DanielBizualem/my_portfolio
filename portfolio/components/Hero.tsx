@@ -244,7 +244,7 @@ export default function HeroSection({ isDarkMode, setIsDarkMode }: HeroProps) {
                 </motion.div>
               </button>
 
-              <motion.a whileHover={{ scale: 1.03, y: -1 }} whileTap={{ scale: 0.98 }} href="/CV.pdf" download="Daniel_Bizualem_CV.pdf" className={`hidden sm:flex px-4 py-2 sm:px-5 sm:py-2.5 rounded-lg font-semibold text-xs tracking-wide transition-all duration-300 items-center gap-2 shadow-lg no-underline cursor-pointer ${isDarkMode ? 'bg-cyan-500 text-slate-950 hover:bg-cyan-400' : 'bg-blue-600 text-white hover:bg-blue-700'}`}>
+              <motion.a whileHover={{ scale: 1.03, y: -1 }} whileTap={{ scale: 0.98 }} href="/Daniel-FullStack CV.pdf" download="Daniel_Bizualem_CV.pdf" className={`hidden sm:flex px-4 py-2 sm:px-5 sm:py-2.5 rounded-lg font-semibold text-xs tracking-wide transition-all duration-300 items-center gap-2 shadow-lg no-underline cursor-pointer ${isDarkMode ? 'bg-cyan-500 text-slate-950 hover:bg-cyan-400' : 'bg-blue-600 text-white hover:bg-blue-700'}`}>
                 <span>Resume</span>
               </motion.a>
 
