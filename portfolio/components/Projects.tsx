@@ -26,44 +26,44 @@ export default function ProjectsSection({ isDarkMode }: ProjectsProps) {
 
   const projectsData: Project[] = [
     {
-      title: 'Sovereign Exec Management Dashboard',
+      title: 'High School Enterprise Management System',
       category: 'Full-Stack',
       description: 'A minimalist enterprise admin architecture built with the MERN stack and Next.js. Features complex task tracking systems, granular user management metrics, and robust pipeline issue tracking.',
       tags: ['Next.js', 'React', 'MongoDB', 'Node.js'],
       metrics: 'Optimized Real-Time Sync',
-      imageUrl: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&auto=format&fit=crop&q=60',
+      imageUrl: 'https://res.cloudinary.com/djxfy60tt/image/upload/v1788813588/school_ERP_racvej.png',
       videoUrl: '#',
-      liveUrl: '#'
+      liveUrl: 'https://onesmosnesib.vercel.app'
     },
     {
-      title: 'Intelligent Image Edge Visualizer',
-      category: 'AI / CV',
+      title: 'Jaba Printing and Advert ',
+      category: 'Full-Stack',
       description: 'A high-performance computer vision tool optimizing complex Canny Edge Detection and image classification workflows using custom CNN and SVM models without processing bottlenecks.',
       tags: ['Python', 'OpenCV', 'CNN', 'TensorFlow'],
       metrics: '94.2% Frame Accuracy',
-      imageUrl: 'https://images.unsplash.com/photo-1527474305487-b87b222841cc?w=600&auto=format&fit=crop&q=60',
+      imageUrl: 'https://res.cloudinary.com/djxfy60tt/image/upload/v1788813711/jabaa_Graphics_kl3rtb.png',
       videoUrl: '#',
-      liveUrl: '#'
+      liveUrl: 'https://jabadvert.vercel.app'
     },
     {
-      title: 'High-Scale Africa Urban Data Module',
+      title: 'Chatbot using Gemini API',
       category: 'Architecture',
       description: 'A decoupled full-stack ecosystem engineered to mitigate community information gaps across developing urban centers. Handles offline capability and manages data packet compression.',
       tags: ['React', 'Docker', 'REST API', 'PostgreSQL'],
       metrics: '60% Latency Reduction',
-      imageUrl: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=600&auto=format&fit=crop&q=60',
+      imageUrl: 'https://res.cloudinary.com/djxfy60tt/image/upload/v1788814012/ChatGPT_Image_Sep_7_2026_11_46_33_PM_zkwwig.png',
       videoUrl: '#',
-      liveUrl: '#'
+      liveUrl: 'https://echochat1.vercel.app/'
     },
     {
-      title: 'Core Workflow Project Engine',
+      title: 'Constration management and collaboration System',
       category: 'Full-Stack',
       description: 'A backend-driven role synchronization tool allowing project managers to securely allocate backlogs, streamline branch tracking workflows, and generate dynamic database reports.',
       tags: ['TypeScript', 'Express', 'MongoDB', 'Tailwind'],
       metrics: 'Client PDF Streaming',
-      imageUrl: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&auto=format&fit=crop&q=60',
+      imageUrl: 'https://res.cloudinary.com/djxfy60tt/image/upload/v1788814538/ChatGPT_Image_Sep_7_2026_11_55_03_PM_sograj.png',
       videoUrl: '#',
-      liveUrl: '#'
+      liveUrl: 'https://conwise.vercel.app/'
     }
   ];
 
@@ -228,29 +228,33 @@ export default function ProjectsSection({ isDarkMode }: ProjectsProps) {
 
                     {/* Links Row */}
                     <div className="flex items-center gap-3">
-                      {project.videoUrl && (
-                        <a 
-                          href={project.videoUrl} 
-                          title="Watch Demo Video"
-                          aria-label="Watch project demonstration video"
-                          className={`flex items-center gap-1 text-xs font-bold transition-colors duration-300 ${
-                            isDarkMode ? 'text-slate-400 hover:text-cyan-400' : 'text-slate-500 hover:text-blue-600'
-                          }`}
-                        >
-                          <Play className="w-3.5 h-3.5 fill-current" />
-                          <span className="text-[11px] font-medium tracking-tight">Demo</span>
-                        </a>
-                      )}
-                      
-                      <a 
-                        href={project.liveUrl} 
-                        title="View Live App"
-                        aria-label="Live Demo link"
-                        className={`transition-colors duration-300 ${isDarkMode ? 'text-slate-400 hover:text-cyan-400' : 'text-slate-500 hover:text-blue-600'}`}
-                      >
-                        <ExternalLink className="w-4 h-4" />
-                      </a>
-                    </div>
+  {project.videoUrl && (
+    <a 
+      href={project.videoUrl} 
+      target="_blank"
+      rel="noopener noreferrer"
+      title="Watch Demo Video"
+      aria-label="Watch project demonstration video"
+      className={`flex items-center gap-1 text-xs font-bold transition-colors duration-300 ${
+        isDarkMode ? 'text-slate-400 hover:text-cyan-400' : 'text-slate-500 hover:text-blue-600'
+      }`}
+    >
+      <Play className="w-3.5 h-3.5 fill-current" />
+      <span className="text-[11px] font-medium tracking-tight">Demo</span>
+    </a>
+  )}
+  
+  <a 
+    href={project.liveUrl} 
+    target="_blank"
+    rel="noopener noreferrer"
+    title="View Live App"
+    aria-label="Live Demo link"
+    className={`transition-colors duration-300 ${isDarkMode ? 'text-slate-400 hover:text-cyan-400' : 'text-slate-500 hover:text-blue-600'}`}
+  >
+    <ExternalLink className="w-4 h-4" />
+  </a>
+</div>
                   </div>
                 </div>
 
