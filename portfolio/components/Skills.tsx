@@ -3,7 +3,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Code2, Server, Database, GitBranch, Terminal } from 'lucide-react';
-import { getTheme, gridBackgroundStyle } from './theme';
+import { getTheme } from './theme';
 
 interface SkillItem {
   name: string;
@@ -216,9 +216,6 @@ export default function SkillsSection({ isDarkMode = true }: { isDarkMode?: bool
       className="py-24 px-4 sm:px-6 lg:px-16 transition-colors duration-500 relative overflow-hidden"
       style={{ backgroundColor: theme.pageBg, color: theme.text }}
     >
-      {/* Square grid background, matching the hero */}
-      <div aria-hidden className="absolute inset-0 pointer-events-none" style={gridBackgroundStyle(theme)} />
-
       {/* Decorative Gradient Background Highlights, recolored to the shared palette */}
       <div
         className="absolute top-1/4 -left-40 w-96 h-96 rounded-full filter blur-[120px] pointer-events-none opacity-20 transition-colors"

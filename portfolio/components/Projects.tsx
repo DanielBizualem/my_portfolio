@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FolderGit2, ExternalLink, Play, BarChart3 } from 'lucide-react';
-import { getTheme, gridBackgroundStyle } from './theme';
+import { getTheme } from './theme';
 
 interface Project {
   title: string;
@@ -79,9 +79,6 @@ export default function ProjectsSection({ isDarkMode }: ProjectsProps) {
       className="min-h-screen flex flex-col justify-center relative overflow-hidden font-sans antialiased p-4 md:p-8 transition-colors duration-500"
       style={{ backgroundColor: theme.pageBg, color: theme.text }}
     >
-      {/* Square grid background, matching the hero */}
-      <div aria-hidden className="absolute inset-0 pointer-events-none" style={gridBackgroundStyle(theme)} />
-
       {/* Outer border container accent */}
       <div
         className="absolute inset-0 border rounded-3xl pointer-events-none m-2 md:m-4 z-40 transition-colors duration-500"

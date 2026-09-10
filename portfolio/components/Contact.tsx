@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { Mail, Send, CheckCircle, Copy, Check, Terminal, Globe } from 'lucide-react';
 import Axios from '../utils/Axios.js';
 import summeryApi from '@/common/summeryApi';
-import { getTheme, gridBackgroundStyle } from './theme';
+import { getTheme } from './theme';
 
 interface ContactProps {
   isDarkMode: boolean;
@@ -68,9 +68,6 @@ export default function ContactSection({ isDarkMode }: ContactProps) {
       className="min-h-screen flex flex-col justify-center relative overflow-hidden font-sans antialiased p-4 md:p-8 transition-colors duration-500"
       style={{ backgroundColor: theme.pageBg, color: theme.text }}
     >
-      {/* Square grid background, matching the hero */}
-      <div aria-hidden className="absolute inset-0 pointer-events-none" style={gridBackgroundStyle(theme)} />
-
       <div
         className="absolute inset-0 border rounded-3xl pointer-events-none m-2 md:m-4 z-50 transition-colors duration-500"
         style={{ borderColor: theme.frameBorder }}
