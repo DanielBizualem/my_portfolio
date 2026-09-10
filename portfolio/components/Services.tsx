@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { Layers, Puzzle, ShieldCheck, BrainCircuit, CheckCircle2 } from 'lucide-react';
+import { getTheme, gridBackgroundStyle } from './theme';
 
 interface ServiceItem {
   icon: React.ComponentType<{ className?: string }>;
@@ -17,6 +18,7 @@ interface ServicesProps {
 }
 
 export default function ServicesSection({ isDarkMode }: ServicesProps) {
+  const theme = getTheme(isDarkMode);
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
@@ -30,7 +32,7 @@ export default function ServicesSection({ isDarkMode }: ServicesProps) {
       badge: 'End-to-End Systems',
       description: 'Engineering responsive front-ends paired with enterprise-ready server logic. Architecting clean database designs and fast deployment paths using Next.js, React, and modern state paradigms.',
       capabilities: ['Custom Dashboard UI', 'Robust State Pipelines', 'Scalable Database Models'],
-      imageUrl: 'https://res.cloudinary.com/djxfy60tt/image/upload/v1780956222/fullstack_ifhxcl.jpg' 
+      imageUrl: 'https://res.cloudinary.com/djxfy60tt/image/upload/v1780956222/fullstack_ifhxcl.jpg'
     },
     {
       icon: Puzzle,
@@ -59,22 +61,25 @@ export default function ServicesSection({ isDarkMode }: ServicesProps) {
   ];
 
   return (
-    <section 
+    <section
       id="services"
-      className={`min-h-screen flex flex-col justify-center relative overflow-hidden font-sans antialiased p-4 md:p-8 transition-colors duration-500 selection:bg-cyan-500 selection:text-slate-900 ${
-        isDarkMode ? 'bg-[#06141d] text-white' : 'bg-slate-50 text-slate-900'
-      }`}
+      className="min-h-screen flex flex-col justify-center relative overflow-hidden font-sans antialiased p-4 md:p-8 transition-colors duration-500"
+      style={{ backgroundColor: theme.pageBg, color: theme.text }}
     >
+      {/* Square grid background, matching the hero */}
+      <div aria-hidden className="absolute inset-0 pointer-events-none" style={gridBackgroundStyle(theme)} />
+
       {/* Outer border container accent matching previous modules */}
-      <div className={`absolute inset-0 border rounded-3xl pointer-events-none m-2 md:m-4 z-40 transition-colors duration-500 ${
-        isDarkMode ? 'border-cyan-500/20' : 'border-slate-300'
-      }`}></div>
+      <div
+        className="absolute inset-0 border rounded-3xl pointer-events-none m-2 md:m-4 z-40 transition-colors duration-500"
+        style={{ borderColor: theme.frameBorder }}
+      />
 
       <div className="w-full max-w-7xl mx-auto px-4 md:px-8 py-16 relative z-10 space-y-12">
-        
+
         {/* Section Header */}
         <div className="space-y-3 text-center lg:text-left">
-          <h2 className={`text-3xl sm:text-4xl font-mono font-black tracking-tight ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>
+          <h2 className="text-3xl sm:text-4xl font-mono font-black tracking-tight" style={{ color: theme.text }}>
             Services & Solutions
           </h2>
         </div>
@@ -82,65 +87,59 @@ export default function ServicesSection({ isDarkMode }: ServicesProps) {
         {/* Services Grid Layout - Cleanly scaled across grid breakpoints */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 pt-4">
           {servicesData.map((service, index) => (
-            <div 
+            <div
               key={index}
               className={`p-5 md:p-6 rounded-2xl border flex flex-col justify-between transition-all duration-500 group relative overflow-hidden backdrop-blur-sm h-full ${
                 isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-              } ${
-                isDarkMode 
-                  ? 'bg-[#0a1f2c]/50 border-cyan-500/10 hover:border-cyan-400/30 shadow-xl shadow-cyan-950/20' 
-                  : 'bg-white border-slate-200 hover:border-blue-300 shadow-lg shadow-slate-100'
               }`}
-              style={{ transitionDelay: `${index * 100}ms` }}
+              style={{
+                backgroundColor: `${theme.panelBg}aa`,
+                borderColor: theme.panelBorder,
+                boxShadow: '0 12px 30px rgba(0,0,0,0.12)',
+                transitionDelay: `${index * 100}ms`,
+              }}
             >
               {/* Subtle Corner Glow Accent on Hover */}
-              <div className={`absolute -right-12 -top-12 w-24 h-24 rounded-full filter blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 ${
-                isDarkMode ? 'bg-cyan-500/10' : 'bg-blue-500/5'
-              }`}></div>
+              <div
+                className="absolute -right-12 -top-12 w-24 h-24 rounded-full filter blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                style={{ backgroundColor: theme.accent, opacity: 0.1 }}
+              />
 
               {/* Upper Section */}
               <div className="flex flex-col flex-grow">
                 {/* Service Metadata Row */}
                 <div className="flex justify-between items-start mb-5">
-                  <div className={`p-2.5 rounded-xl border transition-colors duration-300 ${
-                    isDarkMode ? 'bg-[#06141d] border-cyan-500/20 text-cyan-400 group-hover:border-cyan-400/50' : 'bg-slate-50 border-slate-200 text-blue-600 group-hover:border-blue-500/50'
-                  }`}>
+                  <div
+                    className="p-2.5 rounded-xl border transition-colors duration-300"
+                    style={{ backgroundColor: theme.panelHeaderBg, borderColor: theme.panelBorder, color: theme.accent }}
+                  >
                     <service.icon className="w-5 h-5" />
                   </div>
-                  <span className={`text-[9px] font-extrabold tracking-widest uppercase px-2.5 py-1 rounded border whitespace-nowrap ${
-                    isDarkMode ? 'border-cyan-500/20 bg-cyan-950/40 text-cyan-400' : 'border-blue-100 bg-blue-50 text-blue-600'
-                  }`}>
+                  <span
+                    className="text-[9px] font-extrabold tracking-widest uppercase px-2.5 py-1 rounded border whitespace-nowrap"
+                    style={{ borderColor: theme.panelBorder, backgroundColor: theme.panelHeaderBg, color: theme.accent }}
+                  >
                     {service.badge}
                   </span>
                 </div>
 
                 {/* Service Text Blocks */}
-                <h3 className={`text-lg font-bold tracking-tight mb-2.5 transition-colors duration-300 ${
-                  isDarkMode ? 'text-white group-hover:text-cyan-400' : 'text-slate-900 group-hover:text-blue-600'
-                }`}>
+                <h3 className="text-lg font-bold tracking-tight mb-2.5 transition-colors duration-300" style={{ color: theme.text }}>
                   {service.title}
                 </h3>
-                
-                <p className={`text-xs leading-relaxed mb-5 flex-grow ${
-                  isDarkMode ? 'text-slate-400' : 'text-slate-600'
-                }`}>
+
+                <p className="text-xs leading-relaxed mb-5 flex-grow" style={{ color: theme.textMuted }}>
                   {service.description}
                 </p>
-
-                
               </div>
 
               {/* Scope Capabilities Checklists */}
-              <div className={`pt-4 border-t ${isDarkMode ? 'border-cyan-900/40' : 'border-slate-100'}`}>
+              <div className="pt-4 border-t" style={{ borderColor: theme.panelBorder }}>
                 <div className="grid gap-2">
                   {service.capabilities.map((cap, capIdx) => (
                     <div key={capIdx} className="flex items-center gap-2">
-                      <CheckCircle2 className={`w-3.5 h-3.5 flex-shrink-0 ${
-                        isDarkMode ? 'text-cyan-500/60' : 'text-blue-500/60'
-                      }`} />
-                      <span className={`text-xs font-medium tracking-tight ${
-                        isDarkMode ? 'text-slate-300' : 'text-slate-700'
-                      }`}>
+                      <CheckCircle2 className="w-3.5 h-3.5 flex-shrink-0" style={{ color: theme.accent, opacity: 0.7 }} />
+                      <span className="text-xs font-medium tracking-tight" style={{ color: theme.text }}>
                         {cap}
                       </span>
                     </div>

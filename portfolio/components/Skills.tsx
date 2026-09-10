@@ -3,6 +3,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Code2, Server, Database, GitBranch, Terminal } from 'lucide-react';
+import { getTheme, gridBackgroundStyle } from './theme';
 
 interface SkillItem {
   name: string;
@@ -17,6 +18,8 @@ interface SkillCategory {
 }
 
 export default function SkillsSection({ isDarkMode = true }: { isDarkMode?: boolean }) {
+  const theme = getTheme(isDarkMode);
+
   const skillCategories: SkillCategory[] = [
     {
       title: 'Languages',
@@ -110,7 +113,10 @@ export default function SkillsSection({ isDarkMode = true }: { isDarkMode?: bool
         {
           name: 'Express.js',
           icon: (
-            <span className={`text-[8px] font-black tracking-tight border px-1 py-0.5 rounded leading-none shrink-0 ${isDarkMode ? 'text-white border-white/30' : 'text-slate-900 border-slate-900/30'}`}>
+            <span
+              className="text-[8px] font-black tracking-tight border px-1 py-0.5 rounded leading-none shrink-0"
+              style={{ color: theme.text, borderColor: theme.panelBorder }}
+            >
               EX
             </span>
           )
@@ -182,13 +188,12 @@ export default function SkillsSection({ isDarkMode = true }: { isDarkMode?: bool
     },
   ];
 
-  // Variants for staggered orchestration when grid enters viewport
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.1, // Smooth step-by-step loading curve
+        staggerChildren: 0.1,
       },
     },
   };
@@ -200,47 +205,53 @@ export default function SkillsSection({ isDarkMode = true }: { isDarkMode?: bool
       y: 0,
       transition: {
         duration: 0.5,
-        ease: [0.16, 1, 0.3, 1] as const, // Smooth cubic bezier custom curve
+        ease: [0.16, 1, 0.3, 1] as const,
       },
     },
   };
 
   return (
-    <section id="skills" className={`py-24 px-4 sm:px-6 lg:px-16 transition-colors duration-500 relative overflow-hidden ${
-      isDarkMode ? 'bg-[#06141d] text-white' : 'bg-slate-50 text-slate-900'
-    }`}>
-      
-      {/* Decorative Gradient Background Highlights */}
-      <div className={`absolute top-1/4 -left-40 w-96 h-96 rounded-full filter blur-[120px] pointer-events-none opacity-20 transition-colors ${
-        isDarkMode ? 'bg-cyan-500' : 'bg-blue-400'
-      }`}></div>
-      <div className={`absolute bottom-1/4 -right-40 w-96 h-96 rounded-full filter blur-[120px] pointer-events-none opacity-20 transition-colors ${
-        isDarkMode ? 'bg-rose-500' : 'bg-rose-300'
-      }`}></div>
+    <section
+      id="skills"
+      className="py-24 px-4 sm:px-6 lg:px-16 transition-colors duration-500 relative overflow-hidden"
+      style={{ backgroundColor: theme.pageBg, color: theme.text }}
+    >
+      {/* Square grid background, matching the hero */}
+      <div aria-hidden className="absolute inset-0 pointer-events-none" style={gridBackgroundStyle(theme)} />
+
+      {/* Decorative Gradient Background Highlights, recolored to the shared palette */}
+      <div
+        className="absolute top-1/4 -left-40 w-96 h-96 rounded-full filter blur-[120px] pointer-events-none opacity-20 transition-colors"
+        style={{ backgroundColor: theme.accent }}
+      />
+      <div
+        className="absolute bottom-1/4 -right-40 w-96 h-96 rounded-full filter blur-[120px] pointer-events-none opacity-15 transition-colors"
+        style={{ backgroundColor: theme.keyword }}
+      />
 
       <div className="max-w-7xl mx-auto relative z-10">
-        
+
         {/* Section Header */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: -15 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.6, ease: "easeOut" }}
           className="text-center lg:text-left mb-16 space-y-3"
         >
-          <span className={`text-xs font-mono font-bold tracking-widest uppercase ${isDarkMode ? 'text-cyan-400' : 'text-blue-600'}`}>
+          <span className="text-xs font-mono font-bold tracking-widest uppercase" style={{ color: theme.accent }}>
             Capabilities
           </span>
-          <h2 className={`text-3xl sm:text-4xl font-mono font-black tracking-tight ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>
+          <h2 className="text-3xl sm:text-4xl font-mono font-black tracking-tight" style={{ color: theme.text }}>
             Skill & Tech Stacks
           </h2>
-          <p className={`text-sm max-w-xl ${isDarkMode ? 'text-slate-400' : 'text-slate-500'}`}>
+          <p className="text-sm max-w-xl" style={{ color: theme.textMuted }}>
             A collection of tools, frameworks, and engineering methodologies used to assemble complex interactive applications.
           </p>
         </motion.div>
 
         {/* Skills Grid Dashboard Layout */}
-        <motion.div 
+        <motion.div
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
@@ -251,32 +262,31 @@ export default function SkillsSection({ isDarkMode = true }: { isDarkMode?: bool
             <motion.div
               key={index}
               variants={cardVariants}
-              whileHover={{ 
-                y: -6, 
+              whileHover={{
+                y: -6,
                 scale: 1.01,
+                borderColor: theme.accent,
                 transition: { duration: 0.2, ease: "easeInOut" }
               }}
-              className={`p-7 rounded-2xl border transition-colors duration-300 group relative overflow-hidden flex flex-col justify-between ${
-                isDarkMode 
-                  ? 'bg-[#081b27]/80 border-cyan-950/40 hover:border-cyan-500/30 backdrop-blur-md shadow-[0_12px_30px_rgba(0,0,0,0.4)]' 
-                  : 'bg-white border-slate-200 hover:border-blue-500/30 shadow-[0_12px_30px_rgba(59,130,246,0.04)]'
-              }`}
+              className="p-7 rounded-2xl border transition-colors duration-300 group relative overflow-hidden flex flex-col justify-between backdrop-blur-md"
+              style={{ backgroundColor: `${theme.panelBg}cc`, borderColor: theme.panelBorder, boxShadow: '0 12px 30px rgba(0,0,0,0.12)' }}
             >
               <div>
                 {/* Top Row: Category Title & Glass Accent Icon */}
                 <div className="flex items-start gap-4 mb-6">
-                  <div className={`p-3 rounded-xl border flex items-center justify-center transition-all duration-300 shrink-0 ${
-                    isDarkMode 
-                      ? 'bg-cyan-950/50 border-cyan-500/10 text-cyan-400 group-hover:bg-cyan-400 group-hover:text-slate-950 group-hover:shadow-lg group-hover:shadow-cyan-400/20' 
-                      : 'bg-blue-50 border-blue-100 text-blue-600 group-hover:bg-blue-600 group-hover:text-white group-hover:shadow-lg group-hover:shadow-blue-600/10'
-                  }`}>
+                  <motion.div
+                    whileHover={{ backgroundColor: theme.accent, color: theme.accentText }}
+                    transition={{ duration: 0.25 }}
+                    className="p-3 rounded-xl border flex items-center justify-center shrink-0"
+                    style={{ backgroundColor: theme.panelHeaderBg, borderColor: theme.panelBorder, color: theme.accent }}
+                  >
                     <category.icon className="w-5 h-5" />
-                  </div>
+                  </motion.div>
                   <div className="space-y-0.5">
-                    <h3 className="font-extrabold text-lg tracking-tight transition-colors group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-cyan-400 group-hover:to-blue-500">
+                    <h3 className="font-extrabold text-lg tracking-tight" style={{ color: theme.text }}>
                       {category.title}
                     </h3>
-                    <p className={`text-xs leading-relaxed ${isDarkMode ? 'text-slate-400/80' : 'text-slate-500'}`}>
+                    <p className="text-xs leading-relaxed" style={{ color: theme.textMuted }}>
                       {category.subtitle}
                     </p>
                   </div>
@@ -287,14 +297,11 @@ export default function SkillsSection({ isDarkMode = true }: { isDarkMode?: bool
                   {category.skills.map((skill, sIndex) => (
                     <motion.div
                       key={sIndex}
-                      whileHover={{ scale: 1.04 }}
+                      whileHover={{ scale: 1.04, borderColor: theme.accent }}
                       whileTap={{ scale: 0.97 }}
                       transition={{ type: "spring", stiffness: 400, damping: 15 }}
-                      className={`text-xs font-semibold px-3 2xl:px-3.5 py-2 rounded-xl border transition-all duration-300 flex items-center gap-2.5 cursor-default ${
-                        isDarkMode
-                          ? 'bg-[#05141d]/90 text-slate-300 border-slate-800/80 hover:border-cyan-500/40 hover:text-white hover:bg-[#092230]'
-                          : 'bg-slate-100 text-slate-600 border-slate-200/60 hover:border-blue-500/40 hover:text-slate-900 hover:bg-white'
-                      }`}
+                      className="text-xs font-semibold px-3 2xl:px-3.5 py-2 rounded-xl border transition-all duration-300 flex items-center gap-2.5 cursor-default"
+                      style={{ backgroundColor: theme.panelHeaderBg, borderColor: theme.panelBorder, color: theme.textMuted }}
                     >
                       <span className="flex items-center justify-center shrink-0 filter drop-shadow-[0_2px_4px_rgba(0,0,0,0.15)]">
                         {skill.icon}
@@ -306,9 +313,10 @@ export default function SkillsSection({ isDarkMode = true }: { isDarkMode?: bool
               </div>
 
               {/* Clean Subtle Linear Decorative Accent Background Indicator */}
-              <div className={`absolute bottom-0 left-0 right-0 h-[2.5px] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left ${
-                isDarkMode ? 'bg-gradient-to-r from-cyan-400 to-blue-500' : 'bg-gradient-to-r from-blue-600 to-cyan-500'
-              }`}></div>
+              <div
+                className="absolute bottom-0 left-0 right-0 h-[2.5px] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"
+                style={{ backgroundColor: theme.accent }}
+              />
             </motion.div>
           ))}
         </motion.div>

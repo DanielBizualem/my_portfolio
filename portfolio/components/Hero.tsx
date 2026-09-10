@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { Sun, Moon, Menu, X, Play, Terminal, GitBranch, Cloud, Braces } from 'lucide-react';
+import { Sun, Moon, Menu, X, Play, Terminal, GitBranch, Cloud, Braces, Bot, Workflow } from 'lucide-react';
 import Link from 'next/link';
 import { motion, AnimatePresence, Variants, useReducedMotion } from 'framer-motion';
 import { FaGithub, FaLinkedin } from 'react-icons/fa6';
@@ -176,7 +176,7 @@ export default function HeroSection({ isDarkMode, setIsDarkMode }: HeroProps) {
             <div className="text-xl sm:text-2xl font-bold tracking-tight flex items-center gap-1.5 font-mono" style={{ color: theme.text }}>
             <span className="inline-flex items-center gap-2 text-base not-italic" style={{ WebkitTextStroke: '0px', color: theme.textMuted }}>
               <a 
-                href="https://github.com/your-username" 
+                href="https://github.com/DanielBizualem" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 aria-label="GitHub Profile"
@@ -185,7 +185,7 @@ export default function HeroSection({ isDarkMode, setIsDarkMode }: HeroProps) {
                 <FaGithub className="w-5 h-5" />
               </a>
               <a 
-                href="https://linkedin.com/in/your-username" 
+                href="https://www.linkedin.com/in/daniel-bizualem-34289938a/" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 aria-label="LinkedIn Profile"
@@ -194,7 +194,7 @@ export default function HeroSection({ isDarkMode, setIsDarkMode }: HeroProps) {
                 <FaLinkedin className="w-5 h-5" />
               </a>
               <a 
-                href="https://www.tiktok.com/@jabaa.advert?is_from_webapp=1&sender_device=pc" 
+                href="https://danielbizualem4@gmail.com" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 aria-label="TikTok Profile"
@@ -430,10 +430,12 @@ function DevIllustration({ theme }: { theme: Record<string, string> }) {
   ];
 
   const badges = [
-    { Icon: Terminal, top: '-10%', left: '-14%', delay: 0 },
-    { Icon: Cloud, top: '-10%', left: '78%', delay: 1.2 },
-    { Icon: Braces, top: '32%', left: '96%', delay: 0.5 },
-    { Icon: GitBranch, top: '96%', left: '-12%', delay: 0.9 },
+    { Icon: Terminal, top: '-10%', left: '-12%', delay: 0 },
+    { Icon: Bot, top: '-14%', left: '42%', delay: 0.8 },
+    { Icon: Cloud, top: '-10%', left: '94%', delay: 1.4 },
+    { Icon: Workflow, top: '38%', left: '100%', delay: 0.4 },
+    { Icon: Braces, top: '96%', left: '86%', delay: 1.0 },
+    { Icon: GitBranch, top: '96%', left: '-12%', delay: 1.7 },
   ];
 
   return (
@@ -482,7 +484,7 @@ function DevIllustration({ theme }: { theme: Record<string, string> }) {
         <motion.div
           animate={reduceMotion ? undefined : { y: [0, -6, 0] }}
           transition={{ duration: 4.2, repeat: Infinity, ease: 'easeInOut' }}
-          className="absolute -bottom-2 right-3 w-11 h-12 translate-y-1/2"
+          className="absolute bottom-6 right-3 w-11 h-12 translate-y-1/2"
         >
           <EngineerFigure accent={theme.accent} />
         </motion.div>
@@ -503,6 +505,7 @@ function DevIllustration({ theme }: { theme: Record<string, string> }) {
     </motion.div>
   );
 }
+
 
 function EngineerFigure({ accent }: { accent: string }) {
   return (

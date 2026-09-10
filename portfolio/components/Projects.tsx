@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FolderGit2, ExternalLink, Play, BarChart3 } from 'lucide-react';
+import { getTheme, gridBackgroundStyle } from './theme';
 
 interface Project {
   title: string;
@@ -20,6 +21,7 @@ interface ProjectsProps {
 }
 
 export default function ProjectsSection({ isDarkMode }: ProjectsProps) {
+  const theme = getTheme(isDarkMode);
   const [activeFilter, setActiveFilter] = useState<string>('All');
 
   const categories = ['All', 'Full-Stack', 'AI / CV', 'Architecture'];
@@ -67,102 +69,108 @@ export default function ProjectsSection({ isDarkMode }: ProjectsProps) {
     }
   ];
 
-  const filteredProjects = activeFilter === 'All' 
-    ? projectsData 
+  const filteredProjects = activeFilter === 'All'
+    ? projectsData
     : projectsData.filter(p => p.category === activeFilter);
 
   return (
-    <section 
+    <section
       id="projects"
-      className={`min-h-screen flex flex-col justify-center relative overflow-hidden font-sans antialiased p-4 md:p-8 transition-colors duration-500 selection:bg-cyan-500 selection:text-slate-900 ${
-        isDarkMode ? 'bg-[#06141d] text-white' : 'bg-slate-50 text-slate-900'
-      }`}
+      className="min-h-screen flex flex-col justify-center relative overflow-hidden font-sans antialiased p-4 md:p-8 transition-colors duration-500"
+      style={{ backgroundColor: theme.pageBg, color: theme.text }}
     >
+      {/* Square grid background, matching the hero */}
+      <div aria-hidden className="absolute inset-0 pointer-events-none" style={gridBackgroundStyle(theme)} />
+
       {/* Outer border container accent */}
-      <div className={`absolute inset-0 border rounded-3xl pointer-events-none m-2 md:m-4 z-40 transition-colors duration-500 ${
-        isDarkMode ? 'border-cyan-500/20' : 'border-slate-300'
-      }`}></div>
+      <div
+        className="absolute inset-0 border rounded-3xl pointer-events-none m-2 md:m-4 z-40 transition-colors duration-500"
+        style={{ borderColor: theme.frameBorder }}
+      />
 
       <div className="w-full max-w-7xl mx-auto px-4 md:px-8 py-16 relative z-10 space-y-12">
-        
+
         {/* Section Header Text & Filters */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, ease: 'easeOut' }}
             className="space-y-3 text-center md:text-left"
           >
-            <h2 className={`text-3xl sm:text-4xl font-mono font-black tracking-tight ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>
+            <h2 className="text-3xl sm:text-4xl font-mono font-black tracking-tight" style={{ color: theme.text }}>
               Projects
             </h2>
           </motion.div>
 
           {/* Filter System Chips */}
           <div className="flex flex-wrap justify-center gap-2">
-            {categories.map((cat) => (
-              <button
-                key={cat}
-                onClick={() => setActiveFilter(cat)}
-                className={`px-4 py-2 text-xs font-bold uppercase tracking-wider rounded transition-all duration-300 border relative overflow-hidden ${
-                  activeFilter === cat
-                    ? (isDarkMode ? 'bg-cyan-500 text-slate-950 border-cyan-500' : 'bg-blue-600 text-white border-blue-600')
-                    : (isDarkMode ? 'bg-[#092230]/40 border-cyan-500/10 text-slate-400 hover:border-cyan-500/30' : 'bg-white border-slate-200 text-slate-600 hover:border-blue-300')
-                }`}
-              >
-                {/* Custom sliding background layer logic for active filters */}
-                {activeFilter === cat && (
-                  <motion.div
-                    layoutId="activeFilterBg"
-                    className={`absolute inset-0 z-0 ${isDarkMode ? 'bg-cyan-500' : 'bg-blue-600'}`}
-                    transition={{ type: 'spring', stiffness: 380, damping: 30 }}
-                  />
-                )}
-                <span className="relative z-10">{cat}</span>
-              </button>
-            ))}
+            {categories.map((cat) => {
+              const isActive = activeFilter === cat;
+              return (
+                <button
+                  key={cat}
+                  onClick={() => setActiveFilter(cat)}
+                  className="px-4 py-2 text-xs font-bold uppercase tracking-wider rounded transition-all duration-300 border relative overflow-hidden"
+                  style={{
+                    color: isActive ? theme.accentText : theme.textMuted,
+                    borderColor: isActive ? theme.accent : theme.panelBorder,
+                    backgroundColor: isActive ? 'transparent' : `${theme.panelBg}66`,
+                  }}
+                >
+                  {isActive && (
+                    <motion.div
+                      layoutId="activeFilterBg"
+                      className="absolute inset-0 z-0"
+                      style={{ backgroundColor: theme.accent }}
+                      transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                    />
+                  )}
+                  <span className="relative z-10">{cat}</span>
+                </button>
+              );
+            })}
           </div>
         </div>
 
         {/* Dynamic Project Cards Grid Layout */}
-        <motion.div 
+        <motion.div
           layout
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
         >
           <AnimatePresence mode="popLayout">
-            {filteredProjects.map((project, index) => (
-              <motion.div 
-                key={project.title} // Crucial unique key string required by Framer Motion layout transitions
+            {filteredProjects.map((project) => (
+              <motion.div
+                key={project.title}
                 layout
                 initial={{ opacity: 0, scale: 0.9, y: 30 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.9, y: 20 }}
-                transition={{ 
+                transition={{
                   opacity: { duration: 0.3 },
                   layout: { type: 'spring', stiffness: 400, damping: 38 },
                   scale: { duration: 0.4, ease: [0.16, 1, 0.3, 1] as const }
                 }}
-                whileHover={{ y: -6 }}
-                className={`p-4 md:p-5 rounded-2xl border flex flex-col justify-between transition-colors duration-500 group relative overflow-hidden backdrop-blur-sm h-full ${
-                  isDarkMode 
-                    ? 'bg-[#0a1f2c]/50 border-cyan-500/10 hover:border-cyan-400/30 shadow-xl shadow-cyan-950/20' 
-                    : 'bg-white border-slate-200 hover:border-blue-300 shadow-lg shadow-slate-100'
-                }`}
+                whileHover={{ y: -6, borderColor: theme.accent }}
+                className="p-4 md:p-5 rounded-2xl border flex flex-col justify-between transition-colors duration-500 group relative overflow-hidden backdrop-blur-sm h-full"
+                style={{ backgroundColor: `${theme.panelBg}aa`, borderColor: theme.panelBorder, boxShadow: '0 12px 30px rgba(0,0,0,0.15)' }}
               >
                 {/* Background Glow Ring Effect on Hover */}
-                <div className={`absolute -right-16 -top-16 w-32 h-32 rounded-full filter blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none ${
-                  isDarkMode ? 'bg-cyan-500/10' : 'bg-blue-500/5'
-                }`}></div>
+                <div
+                  className="absolute -right-16 -top-16 w-32 h-32 rounded-full filter blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+                  style={{ backgroundColor: theme.accent, opacity: 0.1 }}
+                />
 
                 {/* Upper Section */}
                 <div className="flex flex-col flex-grow">
                   {/* 1. Project Image Preview Container */}
-                  <div className={`w-full aspect-video rounded-xl overflow-hidden mb-5 relative border group-hover:border-transparent transition-all duration-300 ${
-                    isDarkMode ? 'border-cyan-950/50 bg-[#06141d]' : 'border-slate-200 bg-slate-100'
-                  }`}>
-                    <img 
-                      src={project.imageUrl} 
+                  <div
+                    className="w-full aspect-video rounded-xl overflow-hidden mb-5 relative border group-hover:border-transparent transition-all duration-300"
+                    style={{ borderColor: theme.panelBorder, backgroundColor: theme.panelHeaderBg }}
+                  >
+                    <img
+                      src={project.imageUrl}
                       alt={`${project.title} Preview`}
                       className="w-full h-full object-cover transform group-hover:scale-[1.04] transition-transform duration-500 object-center"
                       loading="lazy"
@@ -171,28 +179,23 @@ export default function ProjectsSection({ isDarkMode }: ProjectsProps) {
 
                   {/* Card Header metadata mapping */}
                   <div className="flex justify-between items-center mb-4">
-                    <div className={`p-2 rounded-lg border ${
-                      isDarkMode ? 'bg-[#06141d] border-cyan-500/20 text-cyan-400' : 'bg-slate-50 border-slate-200 text-blue-600'
-                    }`}>
+                    <div className="p-2 rounded-lg border" style={{ backgroundColor: theme.panelHeaderBg, borderColor: theme.panelBorder, color: theme.accent }}>
                       <FolderGit2 className="w-4 h-4" />
                     </div>
-                    <span className={`text-[10px] font-extrabold tracking-widest uppercase px-2 py-0.5 rounded border ${
-                      isDarkMode ? 'border-cyan-500/20 bg-cyan-950/40 text-cyan-400' : 'border-blue-100 bg-blue-50 text-blue-600'
-                    }`}>
+                    <span
+                      className="text-[10px] font-extrabold tracking-widest uppercase px-2 py-0.5 rounded border"
+                      style={{ borderColor: theme.panelBorder, backgroundColor: theme.panelHeaderBg, color: theme.accent }}
+                    >
                       {project.category}
                     </span>
                   </div>
 
                   {/* Info block definitions */}
-                  <h3 className={`text-lg font-bold tracking-tight mb-2 transition-colors duration-300 ${
-                    isDarkMode ? 'text-white group-hover:text-cyan-400' : 'text-slate-900 group-hover:text-blue-600'
-                  }`}>
+                  <h3 className="text-lg font-bold tracking-tight mb-2 transition-colors duration-300" style={{ color: theme.text }}>
                     {project.title}
                   </h3>
-                  
-                  <p className={`text-xs leading-relaxed mb-5 flex-grow ${
-                    isDarkMode ? 'text-slate-400' : 'text-slate-600'
-                  }`}>
+
+                  <p className="text-xs leading-relaxed mb-5 flex-grow" style={{ color: theme.textMuted }}>
                     {project.description}
                   </p>
                 </div>
@@ -202,11 +205,10 @@ export default function ProjectsSection({ isDarkMode }: ProjectsProps) {
                   {/* Tag badges map array */}
                   <div className="flex flex-wrap gap-1.5 mb-5">
                     {project.tags.map((tag, tIdx) => (
-                      <span 
-                        key={tIdx} 
-                        className={`text-[10px] font-mono font-medium px-2 py-0.5 rounded ${
-                          isDarkMode ? 'bg-[#06141d] text-slate-400 border border-cyan-950' : 'bg-slate-100 text-slate-600 border border-slate-200'
-                        }`}
+                      <span
+                        key={tIdx}
+                        className="text-[10px] font-mono font-medium px-2 py-0.5 rounded border"
+                        style={{ backgroundColor: theme.panelHeaderBg, color: theme.textMuted, borderColor: theme.panelBorder }}
                       >
                         {tag}
                       </span>
@@ -214,47 +216,43 @@ export default function ProjectsSection({ isDarkMode }: ProjectsProps) {
                   </div>
 
                   {/* Card Bottom action area system metrics & links */}
-                  <div className={`pt-4 border-t flex items-center justify-between ${
-                    isDarkMode ? 'border-cyan-900/40' : 'border-slate-100'
-                  }`}>
+                  <div className="pt-4 border-t flex items-center justify-between" style={{ borderColor: theme.panelBorder }}>
                     <div className="flex items-center gap-1.5">
-                      <BarChart3 className={`w-3.5 h-3.5 ${isDarkMode ? 'text-cyan-500/60' : 'text-slate-400'}`} />
-                      <span className={`text-[10px] font-semibold uppercase tracking-wider ${
-                        isDarkMode ? 'text-slate-400' : 'text-slate-500'
-                      }`}>
+                      <BarChart3 className="w-3.5 h-3.5" style={{ color: theme.textMuted }} />
+                      <span className="text-[10px] font-semibold uppercase tracking-wider" style={{ color: theme.textMuted }}>
                         {project.metrics}
                       </span>
                     </div>
 
                     {/* Links Row */}
                     <div className="flex items-center gap-3">
-  {project.videoUrl && (
-    <a 
-      href={project.videoUrl} 
-      target="_blank"
-      rel="noopener noreferrer"
-      title="Watch Demo Video"
-      aria-label="Watch project demonstration video"
-      className={`flex items-center gap-1 text-xs font-bold transition-colors duration-300 ${
-        isDarkMode ? 'text-slate-400 hover:text-cyan-400' : 'text-slate-500 hover:text-blue-600'
-      }`}
-    >
-      <Play className="w-3.5 h-3.5 fill-current" />
-      <span className="text-[11px] font-medium tracking-tight">Demo</span>
-    </a>
-  )}
-  
-  <a 
-    href={project.liveUrl} 
-    target="_blank"
-    rel="noopener noreferrer"
-    title="View Live App"
-    aria-label="Live Demo link"
-    className={`transition-colors duration-300 ${isDarkMode ? 'text-slate-400 hover:text-cyan-400' : 'text-slate-500 hover:text-blue-600'}`}
-  >
-    <ExternalLink className="w-4 h-4" />
-  </a>
-</div>
+                      {project.videoUrl && (
+                        <a
+                          href={project.videoUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          title="Watch Demo Video"
+                          aria-label="Watch project demonstration video"
+                          className="flex items-center gap-1 text-xs font-bold transition-opacity duration-300 hover:opacity-70"
+                          style={{ color: theme.textMuted }}
+                        >
+                          <Play className="w-3.5 h-3.5 fill-current" />
+                          <span className="text-[11px] font-medium tracking-tight">Demo</span>
+                        </a>
+                      )}
+
+                      <a
+                        href={project.liveUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        title="View Live App"
+                        aria-label="Live Demo link"
+                        className="transition-opacity duration-300 hover:opacity-70"
+                        style={{ color: theme.textMuted }}
+                      >
+                        <ExternalLink className="w-4 h-4" />
+                      </a>
+                    </div>
                   </div>
                 </div>
 
