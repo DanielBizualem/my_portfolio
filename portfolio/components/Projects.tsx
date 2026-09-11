@@ -223,20 +223,7 @@ export default function ProjectsSection({ isDarkMode }: ProjectsProps) {
 
                     {/* Links Row */}
                     <div className="flex items-center gap-3">
-                      {project.videoUrl && (
-                        <a
-                          href={project.videoUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          title="Watch Demo Video"
-                          aria-label="Watch project demonstration video"
-                          className="flex items-center gap-1 text-xs font-bold transition-opacity duration-300 hover:opacity-70"
-                          style={{ color: theme.textMuted }}
-                        >
-                          <Play className="w-3.5 h-3.5 fill-current" />
-                          <span className="text-[11px] font-medium tracking-tight">Demo</span>
-                        </a>
-                      )}
+                      
 
                       <a
                         href={project.liveUrl}
@@ -244,9 +231,10 @@ export default function ProjectsSection({ isDarkMode }: ProjectsProps) {
                         rel="noopener noreferrer"
                         title="View Live App"
                         aria-label="Live Demo link"
-                        className="transition-opacity duration-300 hover:opacity-70"
+                        className="flex transition-opacity duration-300 hover:opacity-70 items-center gap-1"
                         style={{ color: theme.textMuted }}
                       >
+                        <span className='text-sm'>Live</span>
                         <ExternalLink className="w-4 h-4" />
                       </a>
                     </div>
