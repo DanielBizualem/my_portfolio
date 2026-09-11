@@ -22,8 +22,8 @@ const ROLES = ['Full Stack Developer', 'Software Engineer'];
 const navLinks = ['Home', 'About', 'Skills', 'Projects', 'Experience', 'Services', 'Contact'];
 
 const stats: Stat[] = [
-  { value: '3+', label: 'years experience' },
-  { value: '6+', label: 'projects shipped' },
+  { value: '3+ Years', label: 'experience' },
+  { value: '6+', label: 'Projects' },
   { value: '12+', label: 'technologies' },
 ];
 
@@ -379,20 +379,20 @@ export default function HeroSection({ isDarkMode, setIsDarkMode }: HeroProps) {
       </main>
 
       {/* STATS FOOTER */}
-      <footer className="w-full max-w-7xl mx-auto px-3 sm:px-4 md:px-8 pt-6 pb-4 relative z-10">
+      <footer className="w-full max-w-7xl mx-auto px-3 sm:px-4 md:px-8 pt-6 pb-4 relative z-10 justify-between">
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 1.1 }}
-          className="border-t flex flex-wrap justify-center gap-x-10 gap-y-3 py-6 font-mono text-[12px] sm:text-[13px]"
+          className="border-t flex flex-wrap justify-center gap-x-10 gap-y-3 py-6 font-mono text-[12px] sm:text-[33px]"
           style={{ borderColor: theme.panelBorder }}
         >
           {stats.map((stat, index) => (
-            <div key={index} className="flex items-baseline gap-2">
-              <span className="font-semibold" style={{ color: theme.accent }}>
+            <div key={index} className="flex flex-col justify-between gap-2 items-center">
+              <p className="font-semibold" style={{ color: theme.accent }}>
                 {stat.value}
-              </span>
-              <span style={{ color: theme.textMuted }}>{stat.label}</span>
+              </p>
+              <p style={{ color: theme.textMuted }}>{stat.label}</p>
             </div>
           ))}
         </motion.div>

@@ -188,28 +188,6 @@ export default function SkillsSection({ isDarkMode = true }: { isDarkMode?: bool
     },
   ];
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-      },
-    },
-  };
-
-  const cardVariants = {
-    hidden: { opacity: 0, y: 25 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.5,
-        ease: [0.16, 1, 0.3, 1] as const,
-      },
-    },
-  };
-
   return (
     <section
       id="skills"
@@ -234,91 +212,76 @@ export default function SkillsSection({ isDarkMode = true }: { isDarkMode?: bool
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.6, ease: "easeOut" }}
-          className="text-center lg:text-left mb-16 space-y-3"
+          className="text-center lg:text-left mb-14 space-y-3"
         >
           <span className="text-xs font-mono font-bold tracking-widest uppercase" style={{ color: theme.accent }}>
             Capabilities
           </span>
           <h2 className="text-3xl sm:text-4xl font-mono font-black tracking-tight" style={{ color: theme.text }}>
-            Skill & Tech Stacks
+            Skills &amp; Tech Stack
           </h2>
-          <p className="text-sm max-w-xl" style={{ color: theme.textMuted }}>
+          <p className="text-sm max-w-xl mx-auto lg:mx-0" style={{ color: theme.textMuted }}>
             A collection of tools, frameworks, and engineering methodologies used to assemble complex interactive applications.
           </p>
         </motion.div>
 
-        {/* Skills Grid Dashboard Layout */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-50px" }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-        >
-          {skillCategories.map((category, index) => (
+        {/* One continuous, non-interactive flow of the whole stack */}
+        {(() => {
+          const allSkills = skillCategories.flatMap((c) => c.skills);
+          const track = [...allSkills, ...allSkills, ...allSkills];
+          const durationSec = 10 + allSkills.length * 2.5;
+
+          return (
             <motion.div
-              key={index}
-              variants={cardVariants}
-              whileHover={{
-                y: -6,
-                scale: 1.01,
-                borderColor: theme.accent,
-                transition: { duration: 0.2, ease: "easeInOut" }
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-60px' }}
+              transition={{ duration: 0.5, ease: 'easeOut' }}
+              className="marquee-row relative overflow-hidden rounded-2xl border py-5"
+              style={{
+                borderColor: theme.panelBorder,
+                backgroundColor: `${theme.panelBg}66`,
+                maskImage: 'linear-gradient(to right, transparent, black 6%, black 94%, transparent)',
+                WebkitMaskImage: 'linear-gradient(to right, transparent, black 6%, black 94%, transparent)',
               }}
-              className="p-7 rounded-2xl border transition-colors duration-300 group relative overflow-hidden flex flex-col justify-between backdrop-blur-md"
-              style={{ backgroundColor: `${theme.panelBg}cc`, borderColor: theme.panelBorder, boxShadow: '0 12px 30px rgba(0,0,0,0.12)' }}
             >
-              <div>
-                {/* Top Row: Category Title & Glass Accent Icon */}
-                <div className="flex items-start gap-4 mb-6">
-                  <motion.div
-                    whileHover={{ backgroundColor: theme.accent, color: theme.accentText }}
-                    transition={{ duration: 0.25 }}
-                    className="p-3 rounded-xl border flex items-center justify-center shrink-0"
-                    style={{ backgroundColor: theme.panelHeaderBg, borderColor: theme.panelBorder, color: theme.accent }}
-                  >
-                    <category.icon className="w-5 h-5" />
-                  </motion.div>
-                  <div className="space-y-0.5">
-                    <h3 className="font-extrabold text-lg tracking-tight" style={{ color: theme.text }}>
-                      {category.title}
-                    </h3>
-                    <p className="text-xs leading-relaxed" style={{ color: theme.textMuted }}>
-                      {category.subtitle}
-                    </p>
-                  </div>
-                </div>
-
-                {/* Individual Badges Map with Integrated Icons */}
-                <div className="flex flex-wrap gap-2 pt-1">
-                  {category.skills.map((skill, sIndex) => (
-                    <motion.div
-                      key={sIndex}
-                      whileHover={{ scale: 1.04, borderColor: theme.accent }}
-                      whileTap={{ scale: 0.97 }}
-                      transition={{ type: "spring", stiffness: 400, damping: 15 }}
-                      className="text-xs font-semibold px-3 2xl:px-3.5 py-2 rounded-xl border transition-all duration-300 flex items-center gap-2.5 cursor-default"
-                      style={{ backgroundColor: theme.panelHeaderBg, borderColor: theme.panelBorder, color: theme.textMuted }}
-                    >
-                      <span className="flex items-center justify-center shrink-0 filter drop-shadow-[0_2px_4px_rgba(0,0,0,0.15)]">
-                        {skill.icon}
-                      </span>
-                      <span>{skill.name}</span>
-                    </motion.div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Clean Subtle Linear Decorative Accent Background Indicator */}
               <div
-                className="absolute bottom-0 left-0 right-0 h-[2.5px] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"
-                style={{ backgroundColor: theme.accent }}
-              />
+                className="marquee-track flex items-center gap-3 w-max px-3"
+                style={{ animation: `marquee-left ${durationSec}s linear infinite` }}
+              >
+                {track.map((skill, i) => (
+                  <div
+                    key={`${skill.name}-${i}`}
+                    className="flex items-center gap-2.5 px-4 py-2.5 rounded-lg border shrink-0"
+                    style={{ backgroundColor: theme.panelHeaderBg, borderColor: theme.panelBorder }}
+                  >
+                    <span className="flex items-center justify-center shrink-0">{skill.icon}</span>
+                    <span className="text-xs sm:text-sm font-mono font-medium whitespace-nowrap" style={{ color: theme.text }}>
+                      {skill.name}
+                    </span>
+                  </div>
+                ))}
+              </div>
             </motion.div>
-          ))}
-        </motion.div>
+          );
+        })()}
 
       </div>
+
+      <style jsx global>{`
+        @keyframes marquee-left {
+          from { transform: translateX(0); }
+          to { transform: translateX(-33.3333%); }
+        }
+        .marquee-row:hover .marquee-track {
+          animation-play-state: paused;
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .marquee-track {
+            animation: none !important;
+          }
+        }
+      `}</style>
     </section>
   );
 }
