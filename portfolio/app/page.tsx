@@ -11,6 +11,7 @@ import ServicesSection from '@/components/Services';
 import ContactSection from '@/components/Contact';
 import Footer from '@/components/Footer';
 import ChatWidget from '@/components/ChatWidget';
+import FloatingContactDock from '@/components/FloatingContactDock';
 // Import your other sections here too (e.g., About, Projects, Contact)
 
 export default function Home() {
@@ -37,6 +38,7 @@ export default function Home() {
       <ContactSection isDarkMode={isDarkMode}/>
       <Footer isDarkMode={isDarkMode}/>
       <ChatWidget isDarkMode={isDarkMode}/>
+      <FloatingContactDock isDarkMode={isDarkMode} />
     </div>
   );
 }

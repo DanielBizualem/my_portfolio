@@ -1,11 +1,12 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { Sun, Moon, Menu, X, Play, Terminal, GitBranch, Cloud, Braces, Bot, Workflow } from 'lucide-react';
+import { Sun, Moon, Menu, X, Play, Terminal, GitBranch, Cloud, Braces, Bot, Workflow, User } from 'lucide-react';
 import Link from 'next/link';
 import { motion, AnimatePresence, Variants, useReducedMotion } from 'framer-motion';
 import { FaGithub, FaLinkedin } from 'react-icons/fa6';
 import { HiOutlineMail } from 'react-icons/hi';
+import { FaUser, FaLocationDot } from 'react-icons/fa6';
 
 interface Stat {
   value: string;
@@ -164,7 +165,7 @@ export default function HeroSection({ isDarkMode, setIsDarkMode }: HeroProps) {
       {/* NAVIGATION */}
       <div className="fixed top-4 sm:top-6 left-0 right-0 z-50 w-full px-5 sm:px-8 md:px-16 pointer-events-none">
         <header
-          className="w-full max-w-7xl mx-auto rounded-md backdrop-blur-md border pointer-events-auto shadow-lg transition-colors duration-500"
+          className="w-full max-w-7xl mx-auto rounded-full backdrop-blur-md border pointer-events-auto shadow-lg transition-colors duration-500"
           style={{ backgroundColor: `${theme.panelBg}c0`, borderColor: theme.panelBorder }}
         >
           <motion.nav
@@ -173,36 +174,9 @@ export default function HeroSection({ isDarkMode, setIsDarkMode }: HeroProps) {
             transition={{ duration: 0.5 }}
             className="w-full flex justify-between items-center px-4 sm:px-6 md:px-8 py-4"
           >
-            <div className="text-xl sm:text-2xl font-bold tracking-tight flex items-center gap-1.5 font-mono" style={{ color: theme.text }}>
-            <span className="inline-flex items-center gap-2 text-base not-italic" style={{ WebkitTextStroke: '0px', color: theme.textMuted }}>
-              <a 
-                href="https://github.com/DanielBizualem" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                aria-label="GitHub Profile"
-                className="transition-colors duration-150 hover:opacity-80"
-              >
-                <FaGithub className="w-5 h-5" />
-              </a>
-              <a 
-                href="https://www.linkedin.com/in/daniel-bizualem-34289938a/" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                aria-label="LinkedIn Profile"
-                className="transition-colors duration-150 hover:opacity-80"
-              >
-                <FaLinkedin className="w-5 h-5" />
-              </a>
-              <a 
-                href="https://danielbizualem4@gmail.com" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                aria-label="TikTok Profile"
-                className="transition-colors duration-150 hover:opacity-80"
-              >
-                <HiOutlineMail className="w-5 h-5" />
-              </a>
-            </span>
+            <div className="flex text-xl sm:text-2xl font-bold tracking-tight items-center gap-1.5 font-mono" style={{ color: theme.text }}>
+              <FaUser className="w-3 h-3 sm:w-5 sm:h-5" />
+              <span className='text-sm'>Daniel Bizualem</span>
             </div>
 
             <div className="hidden md:flex items-center gap-6 lg:gap-8 text-sm font-medium">
@@ -324,28 +298,43 @@ export default function HeroSection({ isDarkMode, setIsDarkMode }: HeroProps) {
           animate="visible"
           className="w-full max-w-2xl flex flex-col items-start text-left relative"
         >
-          <motion.span variants={heroTextItem} className="text-[11px] sm:text-xs font-medium mb-3" style={{ color: theme.textMuted }}>
+          <motion.span variants={heroTextItem} className="flex gap-1 items-center text-[11px] sm:text-xs font-medium mb-3" style={{ color: theme.textMuted }}>
+          <FaLocationDot className="w-4 h-4" />
             Addis Abeba, Ethiopia
           </motion.span>
 
-          <motion.p variants={heroTextItem} className="text-2xl sm:text-3xl font-bold" style={{ color: theme.text }}>
-            Hi! I&apos;m
-          </motion.p>
-
           <DevIllustration theme={theme} />
 
-          <motion.h1
-            variants={heroTextItem}
-            className="text-6xl sm:text-6xl md:text-7xl font-black leading-[0.92] tracking-tight select-none"
-            style={{ WebkitTextStroke: `2px ${theme.nameStroke}`, color: 'transparent' }}
-          >
-            <span className='mr-10 tracking-widest'>
-              Daniel
-              <br />
-              Bizualem
-            </span>
-            
-          </motion.h1>
+          <h1
+  className="text-4xl sm:text-5xl lg:text-5xl font-semibold tracking-tight leading-[1.15]"
+  style={{ color: theme.text }}
+>
+  Building high-performance{" "}
+  <span
+    className="px-2.5 py-[3px] inline-block"
+    style={{
+      backgroundColor: theme.accentBg || "rgba(59, 130, 246, 0.18)",
+      color: theme.accent || "#3b82f6",
+      borderRadius: "0.4em 1.2em 0.5em 1em", // uneven = sketched look
+      transform: "rotate(-0.8deg)",
+    }}
+  >
+    web applications
+  </span>{" "}
+  and intelligent{" "}
+  <span
+    className="px-2.5 py-[3px] inline-block"
+    style={{
+      backgroundColor: theme.accentBg || "rgba(59, 130, 246, 0.18)",
+      color: theme.accent || "#3b82f6",
+      borderRadius: "1em 0.45em 1.1em 0.5em", // different uneven shape
+      transform: "rotate(0.6deg)",
+    }}
+  >
+    AI automation
+  </span>{" "}
+  workflows.
+</h1>
 
           <p className="mt-4 font-mono text-sm sm:text-base font-medium" style={{ color: theme.accent }}>
             Full-Stack Web developer | AI Automation Engineer
@@ -379,34 +368,34 @@ export default function HeroSection({ isDarkMode, setIsDarkMode }: HeroProps) {
       </main>
 
       {/* STATS FOOTER */}
-<footer className="w-full max-w-4xl mx-auto px-4 sm:px-6 md:px-8 pt-6 pb-10 relative z-10">
-  <motion.div
-    initial={{ opacity: 0 }}
-    animate={{ opacity: 1 }}
-    transition={{ duration: 0.5, delay: 1.1 }}
-    className="border-t"
-    style={{ borderColor: theme.panelBorder }}
-  >
-    <div className="flex flex-wrap justify-center sm:justify-between gap-x-12 gap-y-6 py-8">
-      {stats.map((stat, index) => (
-        <div key={index} className="flex flex-col items-center sm:items-start gap-1.5">
-          <p
-            className="font-mono text-xl sm:text-2xl font-semibold tabular-nums"
-            style={{ color: theme.accent }}
-          >
-            {stat.value}
-          </p>
-          <p
-            className="text-[11px] font-medium uppercase tracking-wider"
-            style={{ color: theme.textMuted }}
-          >
-            {stat.label}
-          </p>
-        </div>
-      ))}
-    </div>
-  </motion.div>
-</footer>
+      <footer className="w-full max-w-4xl mx-auto px-4 sm:px-6 md:px-8 pt-6 pb-10 relative z-10">
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5, delay: 1.1 }}
+          className="border-t"
+          style={{ borderColor: theme.panelBorder }}
+        >
+          <div className="flex flex-wrap justify-center sm:justify-between gap-x-12 gap-y-6 py-8">
+            {stats.map((stat, index) => (
+              <div key={index} className="flex flex-col items-center sm:items-start gap-1.5">
+                <p
+                  className="font-mono text-xl sm:text-2xl font-semibold tabular-nums"
+                  style={{ color: theme.accent }}
+                >
+                  {stat.value}
+                </p>
+                <p
+                  className="text-[11px] font-medium uppercase tracking-wider"
+                  style={{ color: theme.textMuted }}
+                >
+                  {stat.label}
+                </p>
+              </div>
+            ))}
+          </div>
+        </motion.div>
+      </footer>
 
       <style jsx global>{`
         @keyframes blink {
