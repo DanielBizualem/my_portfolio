@@ -379,24 +379,34 @@ export default function HeroSection({ isDarkMode, setIsDarkMode }: HeroProps) {
       </main>
 
       {/* STATS FOOTER */}
-      <footer className="w-full max-w-7xl mx-auto px-3 sm:px-4 md:px-8 pt-6 pb-4 relative z-10 justify-between">
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: 1.1 }}
-          className="border-t flex flex-wrap justify-center gap-x-10 gap-y-3 py-6 font-mono text-[12px] sm:text-[33px]"
-          style={{ borderColor: theme.panelBorder }}
-        >
-          {stats.map((stat, index) => (
-            <div key={index} className="flex flex-col justify-between gap-2 items-center">
-              <p className="font-semibold" style={{ color: theme.accent }}>
-                {stat.value}
-              </p>
-              <p style={{ color: theme.textMuted }}>{stat.label}</p>
-            </div>
-          ))}
-        </motion.div>
-      </footer>
+<footer className="w-full max-w-4xl mx-auto px-4 sm:px-6 md:px-8 pt-6 pb-10 relative z-10">
+  <motion.div
+    initial={{ opacity: 0 }}
+    animate={{ opacity: 1 }}
+    transition={{ duration: 0.5, delay: 1.1 }}
+    className="border-t"
+    style={{ borderColor: theme.panelBorder }}
+  >
+    <div className="flex flex-wrap justify-center sm:justify-between gap-x-12 gap-y-6 py-8">
+      {stats.map((stat, index) => (
+        <div key={index} className="flex flex-col items-center sm:items-start gap-1.5">
+          <p
+            className="font-mono text-xl sm:text-2xl font-semibold tabular-nums"
+            style={{ color: theme.accent }}
+          >
+            {stat.value}
+          </p>
+          <p
+            className="text-[11px] font-medium uppercase tracking-wider"
+            style={{ color: theme.textMuted }}
+          >
+            {stat.label}
+          </p>
+        </div>
+      ))}
+    </div>
+  </motion.div>
+</footer>
 
       <style jsx global>{`
         @keyframes blink {
