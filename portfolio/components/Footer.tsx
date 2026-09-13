@@ -30,7 +30,7 @@ export default function Footer({ isDarkMode }: FooterProps) {
         <div className="flex items-center gap-6 order-1 sm:order-2">
           {/* GitHub Inline Vector Asset */}
           <a 
-            href="#" 
+            href="https://github.com/DanielBizualem" 
             target="_blank"
             rel="noopener noreferrer"
             aria-label="GitHub Repository Terminal"
@@ -43,7 +43,7 @@ export default function Footer({ isDarkMode }: FooterProps) {
 
           {/* LinkedIn Inline Vector Asset */}
           <a 
-            href="#" 
+            href="https://www.linkedin.com/in/daniel-bizualem-34289938a/" 
             target="_blank"
             rel="noopener noreferrer"
             aria-label="LinkedIn Professional Network"

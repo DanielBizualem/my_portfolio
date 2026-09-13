@@ -43,7 +43,7 @@ export default function ProjectsSection({ isDarkMode }: ProjectsProps) {
       description: 'A high-performance computer vision tool optimizing complex Canny Edge Detection and image classification workflows using custom CNN and SVM models without processing bottlenecks.',
       tags: ['Python', 'OpenCV', 'CNN', 'TensorFlow'],
       metrics: '94.2% Frame Accuracy',
-      imageUrl: 'https://res.cloudinary.com/djxfy60tt/image/upload/v1788813711/jabaa_Graphics_kl3rtb.png',
+      imageUrl: 'https://res.cloudinary.com/djxfy60tt/image/upload/v1789247874/PiASH_idefho.jpg',
       videoUrl: '#',
       liveUrl: 'https://jabadvert.vercel.app'
     },

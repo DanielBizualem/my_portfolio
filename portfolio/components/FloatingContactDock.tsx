@@ -19,8 +19,8 @@ interface ContactLink {
 const NAVY = '#101828';
 
 const links: ContactLink[] = [
-  { label: 'GitHub', href: 'https://github.com/yourusername', icon: FaGithub },
-  { label: 'LinkedIn', href: 'https://linkedin.com/in/yourusername', icon: FaLinkedin },
+  { label: 'GitHub', href: 'https://github.com/DanielBizualem', icon: FaGithub },
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/daniel-bizualem-34289938a/', icon: FaLinkedin },
   { label: 'Email', href: 'mailto:danielbizualem4@gmail.com', icon: HiOutlineMail },
   { label: '+251 989 957 854', href: 'tel:+251989957854', icon: Phone },
 ];

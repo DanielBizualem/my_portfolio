@@ -147,7 +147,7 @@ export default function ContactSection({ isDarkMode }: ContactProps) {
           {/* Network Node Badges */}
           <div className="flex flex-wrap justify-center lg:justify-start items-center gap-3">
             <a
-              href="#"
+              href="https://github.com/DanielBizualem"
               aria-label="GitHub Profile"
               className="p-2.5 rounded-xl border transition-all duration-300 flex items-center justify-center"
               style={{ backgroundColor: `${theme.panelBg}66`, borderColor: theme.panelBorder, color: theme.textMuted }}
@@ -158,7 +158,7 @@ export default function ContactSection({ isDarkMode }: ContactProps) {
             </a>
 
             <a
-              href="#"
+              href="https://www.linkedin.com/in/daniel-bizualem-34289938a/"
               aria-label="LinkedIn Profile"
               className="p-2.5 rounded-xl border transition-all duration-300 flex items-center justify-center"
               style={{ backgroundColor: `${theme.panelBg}66`, borderColor: theme.panelBorder, color: theme.textMuted }}
