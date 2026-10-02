@@ -179,6 +179,7 @@ export default function HeroSection({ isDarkMode, setIsDarkMode }: HeroProps) {
             <div className="flex text-xl sm:text-2xl font-bold tracking-tight items-center gap-1.5 font-mono" style={{ color: theme.text }}>
               <FaUser className="w-3 h-3 sm:w-5 sm:h-5" />
               <span className='text-sm'>Daniel Bizualem</span>
+            
             </div>
 
             <div className="hidden md:flex items-center gap-6 lg:gap-8 text-sm font-medium">
@@ -228,8 +229,8 @@ export default function HeroSection({ isDarkMode, setIsDarkMode }: HeroProps) {
               </button>
 
               <a
-                href="/Daniel-FullStack CV.pdf"
-                download="Daniel_Bizualem_CV.pdf"
+                href="/Daniel_Bizualem_Dangia.pdf"
+                download="Daniel_Bizualem_Dangia.pdf"
                 className="hidden sm:flex px-4 py-2 sm:px-5 sm:py-2.5 rounded-md font-medium text-xs tracking-wide transition-colors duration-300 items-center gap-2 border no-underline cursor-pointer focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
                 style={{ color: theme.text, borderColor: theme.panelBorder, outlineColor: theme.accent }}
               >
