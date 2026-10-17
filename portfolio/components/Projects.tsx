@@ -28,7 +28,7 @@ export default function ProjectsSection({ isDarkMode }: ProjectsProps) {
 
   const projectsData: Project[] = [
     {
-      title: 'High School Enterprise Management System',
+      title: 'High School Enterprise Resource Management System',
       category: 'Full-Stack',
       description: 'A minimalist enterprise admin architecture built with the MERN stack and Next.js. Features complex task tracking systems, granular user management metrics, and robust pipeline issue tracking.',
       tags: ['Next.js', 'React', 'MongoDB', 'Node.js'],
