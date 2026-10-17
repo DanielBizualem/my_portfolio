@@ -35,7 +35,7 @@ export default function ProjectsSection({ isDarkMode }: ProjectsProps) {
       metrics: 'Optimized Real-Time Sync',
       imageUrl: 'https://res.cloudinary.com/djxfy60tt/image/upload/v1788813588/school_ERP_racvej.png',
       videoUrl: '#',
-      liveUrl: 'https://onesmosnesib.vercel.app'
+      liveUrl: 'https://myhighschool.vercel.app'
     },
     {
       title: 'Jaba Printing and Advert ',
