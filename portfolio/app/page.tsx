@@ -37,7 +37,6 @@ export default function Home() {
       <ServicesSection isDarkMode={isDarkMode}/>
       <ContactSection isDarkMode={isDarkMode}/>
       <Footer isDarkMode={isDarkMode}/>
-      <ChatWidget isDarkMode={isDarkMode}/>
       <FloatingContactDock isDarkMode={isDarkMode} />
     </div>
   );
